@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "ClIhj9N9QUk=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\victor\\Documents\\GitHub\\Bolao\\Application\\Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\victor\\.nuget\\packages\\fluentvalidation\\12.1.1\\fluentvalidation.12.1.1.nupkg.sha512"
+  ],
+  "logs": []
+}

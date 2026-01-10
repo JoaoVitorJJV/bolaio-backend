@@ -1,0 +1,11 @@
+C:\Users\victor\Documents\GitHub\Bolao\Domain\bin\Debug\net9.0\Domain.deps.json
+C:\Users\victor\Documents\GitHub\Bolao\Domain\bin\Debug\net9.0\Domain.dll
+C:\Users\victor\Documents\GitHub\Bolao\Domain\bin\Debug\net9.0\Domain.pdb
+C:\Users\victor\Documents\GitHub\Bolao\Domain\obj\Debug\net9.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\victor\Documents\GitHub\Bolao\Domain\obj\Debug\net9.0\Domain.AssemblyInfoInputs.cache
+C:\Users\victor\Documents\GitHub\Bolao\Domain\obj\Debug\net9.0\Domain.AssemblyInfo.cs
+C:\Users\victor\Documents\GitHub\Bolao\Domain\obj\Debug\net9.0\Domain.csproj.CoreCompileInputs.cache
+C:\Users\victor\Documents\GitHub\Bolao\Domain\obj\Debug\net9.0\Domain.dll
+C:\Users\victor\Documents\GitHub\Bolao\Domain\obj\Debug\net9.0\refint\Domain.dll
+C:\Users\victor\Documents\GitHub\Bolao\Domain\obj\Debug\net9.0\Domain.pdb
+C:\Users\victor\Documents\GitHub\Bolao\Domain\obj\Debug\net9.0\ref\Domain.dll

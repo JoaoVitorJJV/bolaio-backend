@@ -1,0 +1,4 @@
+C:\Users\victor\Documents\GitHub\Bolao\Application\obj\Debug\net9.0\Aplicacao.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\victor\Documents\GitHub\Bolao\Application\obj\Debug\net9.0\Aplicacao.AssemblyInfoInputs.cache
+C:\Users\victor\Documents\GitHub\Bolao\Application\obj\Debug\net9.0\Aplicacao.AssemblyInfo.cs
+C:\Users\victor\Documents\GitHub\Bolao\Application\obj\Debug\net9.0\Aplicacao.csproj.CoreCompileInputs.cache
