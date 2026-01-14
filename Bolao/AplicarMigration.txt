@@ -1,4 +1,5 @@
+docker-compose up -d => inicia o container em background
+
 Add-Migration InitialCreate -Project Infrastructure -StartupProject UFRA.Bolao.API
-Add-Migration nome_da_migration -Project Infrastructure -StartupProject UFRA.Bolao.API
-Update-Database 0 -Project Infrastructure -StartupProject UFRA.Bolao.API
+Update-Database -Project Infrastructure -StartupProject UFRA.Bolao.API
 Remove-Migration -Project Infrastructure -StartupProject UFRA.Bolao.API
