@@ -17,12 +17,26 @@ namespace UFRA.Bolaio.API.Data
         }
 
         public DbSet<Usuario> usuarios { get; set; }
-
+        public DbSet<Carteira> Carteiras { get; set; }
+        public DbSet<Transacao> Transacoes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Usuario>()
+                .HasOne(u => u.Carteira)
+                .WithOne(c => c.Usuario)
+                .HasForeignKey<Carteira>(c => c.UsuarioId)
+                .OnDelete(DeleteBehavior.NoAction);
+            
+            modelBuilder.Entity<Carteira>()
+                .Property(c => c.SaldoAtual)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Transacao>()
+                .Property(t => t.Valor)
+                .HasPrecision(18, 2);
         }
     }
 

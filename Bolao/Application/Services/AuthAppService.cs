@@ -57,6 +57,7 @@ namespace Application.Services
 
             var novoUsuario = new Usuario(dto.Nome, dto.Email);
             novoUsuario.DefinirSenha(passwordHash, passwordSalt);
+            novoUsuario.Carteira = new Carteira();
 
             await _usuarioRepository.AdicionarAsync(novoUsuario);
             await _usuarioRepository.SaveChangesAsync();

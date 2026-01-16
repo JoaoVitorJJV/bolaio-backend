@@ -18,6 +18,7 @@ namespace Domain.Entities
 
 
         public bool Ativo { get; private set; }
+        public Carteira? Carteira { get; set; }
 
 
         protected Usuario() { }

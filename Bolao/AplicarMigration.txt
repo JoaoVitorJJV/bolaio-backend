@@ -1,4 +1,6 @@
 docker-compose up -d => inicia o container em background
+docker-compose up -d --build => inicia o container em background e força a reconstrução das imagens
+docker-compose down => para e remove os containers
 
 Add-Migration InitialCreate -Project Infrastructure -StartupProject UFRA.Bolao.API
 Update-Database -Project Infrastructure -StartupProject UFRA.Bolao.API

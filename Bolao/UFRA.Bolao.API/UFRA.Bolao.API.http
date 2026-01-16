@@ -1,0 +1,41 @@
+﻿@UFRA.Bolao.API_HostAddress = https://localhost:7228
+
+
+POST {{UFRA.Bolao.API_HostAddress}}/auth/register
+Content-Type: application/json
+
+{
+ "nome":"joao teste",
+ "email":"joao@gmail.com",
+ "senha":"joao1230"
+}
+
+###
+
+GET {{UFRA.Bolao.API_HostAddress}}/carteira/saldo
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0YTIwNzRiNS04OWNiLTQxYTgtYTNiNS1kNDhlOWMyNjQ3MmYiLCJ1bmlxdWVfbmFtZSI6ImpvYW8gdGVzdGUiLCJlbWFpbCI6Ijlqb2FvdmljdG9yQGdtYWlsLmNvbSIsIm5iZiI6MTc2ODUzNTEwMSwiZXhwIjoxNzY4NjIxNTAxLCJpYXQiOjE3Njg1MzUxMDF9.lhfAiHXY4MrWSRLoqbmHBAWfmJsSaD1ATDA7gFsJImGn_VoXRgs5VFCrcsWBppLGOtREkaW5PKmPZLmjop6ocg
+Content-Type: application/json
+{
+
+}
+###
+
+POST {{UFRA.Bolao.API_HostAddress}}/auth/login
+Content-Type: application/json
+
+{
+ "email":"9joaovictor@gmail.com",
+ "senha":"joao1230"
+}
+
+###
+
+
+POST {{UFRA.Bolao.API_HostAddress}}/carteira/depositar
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0YTIwNzRiNS04OWNiLTQxYTgtYTNiNS1kNDhlOWMyNjQ3MmYiLCJ1bmlxdWVfbmFtZSI6ImpvYW8gdGVzdGUiLCJlbWFpbCI6Ijlqb2FvdmljdG9yQGdtYWlsLmNvbSIsIm5iZiI6MTc2ODUzNTEwMSwiZXhwIjoxNzY4NjIxNTAxLCJpYXQiOjE3Njg1MzUxMDF9.lhfAiHXY4MrWSRLoqbmHBAWfmJsSaD1ATDA7gFsJImGn_VoXRgs5VFCrcsWBppLGOtREkaW5PKmPZLmjop6ocg
+{
+  "valor":"50"
+}
+
+###

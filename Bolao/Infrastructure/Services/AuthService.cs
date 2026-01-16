@@ -52,7 +52,7 @@ namespace Infrastructure.Services
             new Claim(ClaimTypes.Email, usuario.Email)
         };
 
-            var tokenKey = _configuration.GetSection("AppSettings:Token").Value;
+            var tokenKey = _configuration.GetSection("Jwt:Key").Value;
 
             if (string.IsNullOrEmpty(tokenKey))
                 throw new Exception("Token não configurado.");
