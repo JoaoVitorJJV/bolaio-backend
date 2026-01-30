@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi; // Adicione este using no topo do arquivo, se ainda não existir
 using System.Text;
 using UFRA.Bolaio.API.Data;
 using UFRA.Bolaio.API.Endpoints;
