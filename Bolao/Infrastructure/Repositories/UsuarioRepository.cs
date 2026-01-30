@@ -33,5 +33,11 @@ namespace Infrastructure.Repositories
         {
             await _context.SaveChangesAsync();
         }
+
+        public Task<Usuario?> ObterPorIdAsync(Guid id)
+        {
+            Usuario? usuario = _context.usuarios.FirstOrDefault(u => u.Id == id);
+            return Task.FromResult(usuario);
+        }
     }
 }

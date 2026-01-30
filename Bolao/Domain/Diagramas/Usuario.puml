@@ -1,0 +1,12 @@
+@startuml
+class Usuario {
+    + Nome : string <<get>>
+    + Email : string <<get>>
+    + Ativo : bool <<get>>
+    + Usuario(nome:string, email:string)
+    + DefinirSenha(passwordHash:byte[], passwordSalt:byte[]) : void
+    + AlterarNome(novoNome:string) : void
+}
+Usuario --> "Id" Guid
+Usuario --> "Carteira" Carteira
+@enduml

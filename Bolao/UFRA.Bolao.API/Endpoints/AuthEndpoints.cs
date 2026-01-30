@@ -2,6 +2,7 @@
 using Application.Services;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace UFRA.Bolaio.API.Endpoints
 {
@@ -40,5 +41,7 @@ namespace UFRA.Bolaio.API.Endpoints
 
             return Results.Created($"/usuarios/{resultado.Id}", resultado);
         }
+
+   
     }
 }

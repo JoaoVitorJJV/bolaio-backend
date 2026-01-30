@@ -1,0 +1,63 @@
+@startuml
+class Bolao {
+    + Nome : string <<get>>
+    + Ativo : bool <<get>> = true
+    + Valor : decimal <<get>> = 0.00M
+    + Bolao()
+    + Bolao(organizador:Usuario, nome:string, visibilidade:TipoVisibilidade, valor:decimal, dtFechamento:DateTime, tipoBolao:TipoBolao)
+    + AdicionarPalpite(palpite:Palpites) : void
+    + RemoverPalpite(palpite:Palpites) : void
+    + CalcularPremioTotal() : decimal
+    + FecharBolao() : void
+    + ObterNumeroDeParticipantes() : int
+    + NotificarParticipantes(mensagem:string) : void
+}
+Bolao --> "Id" Guid
+Bolao --> "Organizador" Usuario
+Bolao o-> "DataCriacao" DateTime
+Bolao --> "DataFechamento" DateTime
+Bolao --> "Visibilidade" TipoVisibilidade
+Bolao o-> "Palpites<Palpites>" "List`1"
+Bolao o-> "TipoEsporte" TipoEsporte
+Bolao --> "TipoBolao" TipoBolao
+class Carteira {
+    + SaldoAtual : decimal <<get>> = 0
+    + Depositar(valor:decimal) : void
+    + Sacar(valor:decimal) : void
+}
+class "List`1"<T> {
+}
+Carteira --> "Id" Guid
+Carteira --> "UsuarioId" Guid
+Carteira o-> "Usuario" Usuario
+Carteira o-> "Transacoes<Transacao>" "List`1"
+class Palpites {
+    + QtdCotas : int <<get>> = 1
+    + Palpites()
+    + Palpites(usuario:Usuario, bolao:Bolao)
+    + Palpites(usuario:Usuario, bolao:Bolao, qtdCotas:int)
+    + AdicionarCotas(quantidade:int) : void
+    + RemoverCotas(quantidade:int) : void
+}
+Palpites --> "Id" Guid
+Palpites --> "Participante" Usuario
+Palpites --> "Bolao" Bolao
+class Transacao {
+    + Valor : decimal <<get>> <<set>>
+    + CarteiraId : int <<get>> <<set>>
+}
+Transacao --> "Id" Guid
+Transacao o-> "DataHora" DateTime
+Transacao --> "Tipo" TipoTransacao
+Transacao o-> "Carteira" Carteira
+class Usuario {
+    + Nome : string <<get>>
+    + Email : string <<get>>
+    + Ativo : bool <<get>>
+    + Usuario(nome:string, email:string)
+    + DefinirSenha(passwordHash:byte[], passwordSalt:byte[]) : void
+    + AlterarNome(novoNome:string) : void
+}
+Usuario --> "Id" Guid
+Usuario --> "Carteira" Carteira
+@enduml

@@ -1,0 +1,23 @@
+@startuml
+class Bolao {
+    + Nome : string <<get>>
+    + Ativo : bool <<get>> = true
+    + Valor : decimal <<get>> = 0.00M
+    + Bolao()
+    + Bolao(organizador:Usuario, nome:string, visibilidade:TipoVisibilidade, valor:decimal, dtFechamento:DateTime, tipoBolao:TipoBolao)
+    + AdicionarPalpite(palpite:Palpites) : void
+    + RemoverPalpite(palpite:Palpites) : void
+    + CalcularPremioTotal() : decimal
+    + FecharBolao() : void
+    + ObterNumeroDeParticipantes() : int
+    + NotificarParticipantes(mensagem:string) : void
+}
+Bolao --> "Id" Guid
+Bolao --> "Organizador" Usuario
+Bolao o-> "DataCriacao" DateTime
+Bolao --> "DataFechamento" DateTime
+Bolao --> "Visibilidade" TipoVisibilidade
+Bolao o-> "Palpites<Palpites>" "List`1"
+Bolao o-> "TipoEsporte" TipoEsporte
+Bolao --> "TipoBolao" TipoBolao
+@enduml

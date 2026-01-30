@@ -12,7 +12,7 @@ namespace Domain.Entities
         public DateTime DataHora { get; set; } = DateTime.UtcNow;
         public TipoTransacao Tipo { get; set; }
 
-        public int CarteiraId { get; set; }
+        public Guid CarteiraId { get; set; }
         public Carteira Carteira { get; set; } = null!;
     }
 }

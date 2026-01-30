@@ -1,0 +1,10 @@
+@startuml
+class Transacao {
+    + Valor : decimal <<get>> <<set>>
+    + CarteiraId : int <<get>> <<set>>
+}
+Transacao --> "Id" Guid
+Transacao o-> "DataHora" DateTime
+Transacao --> "Tipo" TipoTransacao
+Transacao o-> "Carteira" Carteira
+@enduml

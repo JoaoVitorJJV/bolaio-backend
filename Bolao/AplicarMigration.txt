@@ -2,6 +2,13 @@ docker-compose up -d => inicia o container em background
 docker-compose up -d --build => inicia o container em background e força a reconstrução das imagens
 docker-compose down => para e remove os containers
 
-Add-Migration InitialCreate -Project Infrastructure -StartupProject UFRA.Bolao.API
+Add-Migration bolaoendpoint -Project Infrastructure -StartupProject UFRA.Bolao.API
 Update-Database -Project Infrastructure -StartupProject UFRA.Bolao.API
 Remove-Migration -Project Infrastructure -StartupProject UFRA.Bolao.API
+
+
+dotnet tool install --global PlantUmlClassDiagramGenerator
+puml-gen "C:\Users\victor\Documents\GitHub\bolaio-backend\Bolao\Domain\Entities\" --output "C:\Users\victor\Documents\GitHub\bolaio-backend\Bolao\Domain\Diagramas\"
+
+
+puml-gen "C:\Users\victor\Documents\GitHub\bolaio-backend\Bolao\Domain\Entities" "C:\Users\victor\Documents\GitHub\bolaio-backend\Bolao\Domain\Diagramas" -dir -ignore Private,Protected -createAssociation -allInOne

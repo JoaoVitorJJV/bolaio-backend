@@ -2,6 +2,7 @@
 using Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using UFRA.Bolao.API.Extensions;
 using static Application.DTOs.UsuarioDtos;
 
 namespace UFRA.Bolao.API.Endpoints
@@ -24,7 +25,7 @@ namespace UFRA.Bolao.API.Endpoints
         {
             try
             {
-                var saldo = await service.ObterSaldoAsync(GetUserId(user));
+                var saldo = await service.ObterSaldoAsync(user.GetId());
                 return Results.Ok(new { Saldo = saldo });
             }
             catch (Exception ex)
@@ -33,11 +34,11 @@ namespace UFRA.Bolao.API.Endpoints
             }
         }
 
-        private static async Task<IResult> Depositar([FromBody] DepositoDto dto,[FromServices] ICarteiraService service,ClaimsPrincipal user)
+        private static async Task<IResult> Depositar([FromBody] DepositoDto dto,[FromServices] ICarteiraService service, ClaimsPrincipal user)
         {
             try
             {
-                var usuarioId = GetUserId(user);
+                var usuarioId = user.GetId();
                 var novoSaldo = await service.DepositarAsync(usuarioId, dto.Valor);
                 return Results.Ok(new { Mensagem = "Depósito realizado!", NovoSaldo = novoSaldo });
             }
@@ -46,18 +47,6 @@ namespace UFRA.Bolao.API.Endpoints
                 return Results.BadRequest(new { Erro = ex.Message });
             }
         }
-        private static Guid GetUserId(ClaimsPrincipal user)
-        {            
-            var idString = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;            
-            if (string.IsNullOrEmpty(idString))
-                throw new Exception("Token inválido: ID não encontrado nos Claims.");
-            
-            if (!Guid.TryParse(idString, out var idGuid))
-            {
-                throw new Exception($"Token inválido");
-            }
-
-            return idGuid;
-        }
+        
     }
 }

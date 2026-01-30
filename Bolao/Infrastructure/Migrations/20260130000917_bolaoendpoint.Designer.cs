@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using UFRA.Bolaio.API.Data;
@@ -11,9 +12,11 @@ using UFRA.Bolaio.API.Data;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260130000917_bolaoendpoint")]
+    partial class bolaoendpoint
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,10 +119,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("bolao_id");
 
-                    b.Property<DateTime>("DataCriacao")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("data_criacao");
-
                     b.Property<Guid>("ParticipanteId")
                         .HasColumnType("uuid")
                         .HasColumnName("participante_id");
@@ -147,9 +146,13 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<Guid>("CarteiraId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("CarteiraId")
+                        .HasColumnType("integer")
                         .HasColumnName("carteira_id");
+
+                    b.Property<Guid>("CarteiraId1")
+                        .HasColumnType("uuid")
+                        .HasColumnName("carteira_id1");
 
                     b.Property<DateTime>("DataHora")
                         .HasColumnType("timestamp with time zone")
@@ -167,8 +170,8 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id")
                         .HasName("pk_transacoes");
 
-                    b.HasIndex("CarteiraId")
-                        .HasDatabaseName("ix_transacoes_carteira_id");
+                    b.HasIndex("CarteiraId1")
+                        .HasDatabaseName("ix_transacoes_carteira_id1");
 
                     b.ToTable("transacoes", (string)null);
                 });
@@ -265,10 +268,10 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.Entities.Carteira", "Carteira")
                         .WithMany("Transacoes")
-                        .HasForeignKey("CarteiraId")
+                        .HasForeignKey("CarteiraId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_transacoes_carteiras_carteira_id");
+                        .HasConstraintName("fk_transacoes_carteiras_carteira_id1");
 
                     b.Navigation("Carteira");
                 });

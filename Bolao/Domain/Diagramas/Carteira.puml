@@ -1,0 +1,13 @@
+@startuml
+class Carteira {
+    + SaldoAtual : decimal <<get>> = 0
+    + Depositar(valor:decimal) : void
+    + Sacar(valor:decimal) : void
+}
+class "List`1"<T> {
+}
+Carteira --> "Id" Guid
+Carteira --> "UsuarioId" Guid
+Carteira o-> "Usuario" Usuario
+Carteira o-> "Transacoes<Transacao>" "List`1"
+@enduml

@@ -19,6 +19,8 @@ namespace UFRA.Bolaio.API.Data
         public DbSet<Usuario> usuarios { get; set; }
         public DbSet<Carteira> Carteiras { get; set; }
         public DbSet<Transacao> Transacoes { get; set; }
+        public DbSet<Bolao> Boloes { get; set; }
+        public DbSet<Palpites> Palpites { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

@@ -1,0 +1,13 @@
+@startuml
+class Palpites {
+    + QtdCotas : int <<get>> = 1
+    + Palpites()
+    + Palpites(usuario:Usuario, bolao:Bolao)
+    + Palpites(usuario:Usuario, bolao:Bolao, qtdCotas:int)
+    + AdicionarCotas(quantidade:int) : void
+    + RemoverCotas(quantidade:int) : void
+}
+Palpites --> "Id" Guid
+Palpites --> "Participante" Usuario
+Palpites --> "Bolao" Bolao
+@enduml
