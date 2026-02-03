@@ -34,4 +34,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="10.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Microsservicos\" />
+  </ItemGroup>
+
 </Project>

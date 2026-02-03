@@ -78,6 +78,7 @@ builder.Services.AddScoped<AuthAppService>();
 builder.Services.AddScoped<ICarteiraRepository, CarteiraRepository>();
 builder.Services.AddScoped<IBolaoRepository, BolaoRepository>();
 builder.Services.AddScoped<IBolaoService,BolaoService>();
+builder.Services.AddScoped<IBolaoQueries,BolaoQueriesService>();
 
 
 var jwtKey = builder.Configuration["Jwt:Key"];

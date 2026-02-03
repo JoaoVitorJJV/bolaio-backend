@@ -3,6 +3,7 @@ using Application.Interfaces;
 using Domain.Exceptions;
 using Domain.Interfaces;
 using Infrastructure.Repositories;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using static Application.DTOs.BolaoDto;
@@ -24,9 +25,9 @@ namespace UFRA.Bolao.API.Endpoints
             group.MapPost("/registrar_palpite",RegistrarPalpite);
         }
 
-        private static async Task<IResult> ListarBoloes([FromServices] IBolaoService service)
+        private static async Task<IResult> ListarBoloes([FromServices] IBolaoQueries bolaoQueries)
         {
-            var resultado = await service.ListarBoloes();
+            var resultado = await bolaoQueries.ListarBoloes();
             return Results.Ok(resultado);
         }
 

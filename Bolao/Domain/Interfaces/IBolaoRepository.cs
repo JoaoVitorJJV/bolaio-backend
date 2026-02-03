@@ -8,7 +8,7 @@ namespace Domain.Interfaces
     public interface IBolaoRepository
     {
         public  Task AdicionarAsync(Bolao bolao);
-        Task<List<Bolao>> ListarBoloes();
+        Task<Partida?> ObterPartidaPorIdAsync(Guid partidaId);
         Task<Bolao?> ObterPorIdAsync(Guid bolaoId);
         Task SaveChangesAsync();
     }

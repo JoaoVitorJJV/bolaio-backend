@@ -48,3 +48,8 @@ Content-Type: application/json
 }
 
 ###
+
+GET {{UFRA.Bolao.API_HostAddress}}/bolao/listar
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOlsiNGEyMDc0YjUtODljYi00MWE4LWEzYjUtZDQ4ZTljMjY0NzJmIiwiNGEyMDc0YjUtODljYi00MWE4LWEzYjUtZDQ4ZTljMjY0NzJmIl0sInVuaXF1ZV9uYW1lIjoiam9hbyB0ZXN0ZSIsImVtYWlsIjoiOWpvYW92aWN0b3JAZ21haWwuY29tIiwibmJmIjoxNzY5ODE1MDE0LCJleHAiOjE3Njk5MDE0MTQsImlhdCI6MTc2OTgxNTAxNH0.zY4T9z-SCiTtnTMm693OuPNK0eX4DxejDvJ8LvkxMzifF3_xBx9I0IVVjStsLLdOie4egj_iuSMcgCUPqYQw5g
+
+###

@@ -19,15 +19,18 @@ namespace Domain.Entities
         public bool Ativo { get; private set; } = true;
         public decimal Valor { get; private set; } = 0.00M;// tem que definir 
         public TipoBolao TipoBolao { get; private set; }
-        public int qtdParticipantes { get; private set; }
-
+        public int qtdParticipantes { get; private set; } = 0;
+        public string Premio { get; private set; } = "0";
+        public decimal TaxaAdministrativa { get; private set; } = 0.05M; // 5% de taxa
+        public Partida Partida { get; private set; }
+        public int MaxParticipantes { get; private set; } = 1;
 
         public Bolao()
         {
             
         }
 
-        public Bolao(Usuario organizador, string nome, TipoVisibilidade visibilidade, decimal valor, DateTime dtFechamento, TipoBolao tipoBolao, int qtdParticipantes)
+        public Bolao(Usuario organizador, string nome, TipoVisibilidade visibilidade, decimal valor, DateTime dtFechamento, TipoBolao tipoBolao, int maxParticipantes, Partida partida)
         {
             Id = Guid.NewGuid();
             Organizador = organizador;
@@ -36,14 +39,20 @@ namespace Domain.Entities
             Valor = valor;
             DataFechamento = dtFechamento;
             TipoBolao = tipoBolao;
-            this.qtdParticipantes = qtdParticipantes;
+            Partida = partida;
         }
 
         public void AdicionarPalpite(Palpites palpite)
         {
             if (this.Ativo && this.DataFechamento > DateTime.Now)
             {
+                if (this.Palpites.Any(p=>p.Participante.Id == palpite.Participante.Id))
+                {
+                    throw new DomainException("Você já está participando deste bolão!.");
+                }
                 Palpites?.Add(palpite);
+                this.qtdParticipantes++;
+                CalcularPremioTotal();
             }
             else
             {
@@ -56,16 +65,19 @@ namespace Domain.Entities
             if (this.Ativo && DateTime.Now < this.DataFechamento)
             {
                 Palpites?.Remove(palpite);
+                this.qtdParticipantes--;
+                CalcularPremioTotal();
             }
             else
             {
-                throw new DomainException("Não é possível remover palpites de um bolão fechado ou inativo.");
+                throw new DomainException("Não é possível sair de um bolão fechado ou inativo.");
             }
         }
 
         public decimal CalcularPremioTotal()
         {
-            return Palpites != null ? Palpites.Count * Valor : 0.00M;
+            Premio = Palpites != null ? (Palpites.Count * Valor).ToString("C2") : 0.00M.ToString("C2");
+            return Premio != null ? decimal.Parse(Premio, System.Globalization.NumberStyles.Currency) : 0.00M;
         }
 
         public void FecharBolao()

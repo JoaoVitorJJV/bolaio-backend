@@ -10,6 +10,7 @@ namespace Domain.Enums
         Saque,
         Aposta,
         Premio,
-        Reembolso
+        Reembolso,
+        Debito
     }
 }

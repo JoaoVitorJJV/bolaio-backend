@@ -36,7 +36,7 @@ namespace Infrastructure.Repositories
 
         public Task<Usuario?> ObterPorIdAsync(Guid id)
         {
-            Usuario? usuario = _context.usuarios.FirstOrDefault(u => u.Id == id);
+            Usuario? usuario = _context.usuarios.Include(u=>u.Carteira).FirstOrDefault(u => u.Id == id);
             return Task.FromResult(usuario);
         }
     }

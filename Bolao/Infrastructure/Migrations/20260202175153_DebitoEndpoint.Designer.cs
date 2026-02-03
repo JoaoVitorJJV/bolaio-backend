@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using UFRA.Bolaio.API.Data;
@@ -11,9 +12,11 @@ using UFRA.Bolaio.API.Data;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260202175153_DebitoEndpoint")]
+    partial class DebitoEndpoint
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,10 +44,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("data_fechamento");
 
-                    b.Property<int>("MaxParticipantes")
-                        .HasColumnType("integer")
-                        .HasColumnName("max_participantes");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("text")
@@ -53,15 +52,6 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("OrganizadorId")
                         .HasColumnType("uuid")
                         .HasColumnName("organizador_id");
-
-                    b.Property<Guid>("PartidaId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("partida_id");
-
-                    b.Property<string>("Premio")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("premio");
 
                     b.Property<decimal>("TaxaAdministrativa")
                         .HasColumnType("numeric")
@@ -92,9 +82,6 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("OrganizadorId")
                         .HasDatabaseName("ix_boloes_organizador_id");
-
-                    b.HasIndex("PartidaId")
-                        .HasDatabaseName("ix_boloes_partida_id");
 
                     b.ToTable("boloes", (string)null);
                 });
@@ -165,75 +152,6 @@ namespace Infrastructure.Migrations
                         .HasDatabaseName("ix_palpites_transacao_id");
 
                     b.ToTable("palpites", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.Partida", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("DataPartida")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("data_partida");
-
-                    b.Property<string>("ResultadoTimeA")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("resultado_time_a");
-
-                    b.Property<string>("ResultadoTimeB")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("resultado_time_b");
-
-                    b.Property<Guid>("TimeAId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("time_a_id");
-
-                    b.Property<Guid>("TimeBId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("time_b_id");
-
-                    b.HasKey("Id")
-                        .HasName("pk_partidas");
-
-                    b.HasIndex("TimeAId")
-                        .HasDatabaseName("ix_partidas_time_a_id");
-
-                    b.HasIndex("TimeBId")
-                        .HasDatabaseName("ix_partidas_time_b_id");
-
-                    b.ToTable("partidas", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.Times", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("BandeiraUrl")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("bandeira_url");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("nome");
-
-                    b.Property<string>("Sigla")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("sigla");
-
-                    b.HasKey("Id")
-                        .HasName("pk_times");
-
-                    b.ToTable("times", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Transacao", b =>
@@ -321,16 +239,7 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_boloes_usuarios_organizador_id");
 
-                    b.HasOne("Domain.Entities.Partida", "Partida")
-                        .WithMany()
-                        .HasForeignKey("PartidaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_boloes_partidas_partida_id");
-
                     b.Navigation("Organizador");
-
-                    b.Navigation("Partida");
                 });
 
             modelBuilder.Entity("Domain.Entities.Carteira", b =>
@@ -373,27 +282,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Participante");
 
                     b.Navigation("Transacao");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Partida", b =>
-                {
-                    b.HasOne("Domain.Entities.Times", "TimeA")
-                        .WithMany()
-                        .HasForeignKey("TimeAId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_partidas_times_time_a_id");
-
-                    b.HasOne("Domain.Entities.Times", "TimeB")
-                        .WithMany()
-                        .HasForeignKey("TimeBId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_partidas_times_time_b_id");
-
-                    b.Navigation("TimeA");
-
-                    b.Navigation("TimeB");
                 });
 
             modelBuilder.Entity("Domain.Entities.Transacao", b =>

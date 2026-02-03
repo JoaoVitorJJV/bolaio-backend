@@ -10,7 +10,6 @@ namespace Application.Interfaces
     public interface IBolaoService
     {
         Task<CriarBolaoResponseDto> CriarBolaoAsync(CriarBolaoDto bolaoDto);
-        Task<List<ListarBoloesDto>> ListarBoloes();
         Task RegistrarPalpiteAsync(RegistrarPalpiteDto dto,Guid idUsuario);
     }
 

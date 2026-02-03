@@ -7,6 +7,8 @@ namespace Domain.Entities
     {
         public Guid Id { get; private set; }
         public Usuario Participante { get; private set; }
+        public Guid TransacaoId { get; private set; }
+        public Transacao? Transacao { get; private set; }
         public Bolao Bolao { get; private set; }       
         public int QtdCotas { get; private set; } = 1;
         public DateTime DataCriacao { get; private set; } = DateTime.Now;
@@ -14,17 +16,18 @@ namespace Domain.Entities
         {
             
         }
-        public Palpites(Usuario usuario,Bolao bolao)
+        public Palpites(Usuario usuario,Bolao bolao, Transacao transacao)
         {
             Participante = usuario;
             Bolao = bolao;
+            Transacao = transacao;
         }
-        public Palpites(Usuario usuario, Bolao bolao, int qtdCotas)
+        public Palpites(Usuario usuario, Bolao bolao, int qtdCotas,Transacao transacao)
         {
             Participante = usuario;
             Bolao = bolao;
+            Transacao = transacao;
         }
-
         public void AdicionarCotas(int quantidade)
         {
             if (quantidade <= 0)
@@ -33,7 +36,6 @@ namespace Domain.Entities
             }
             QtdCotas += quantidade;
         }
-
         public void RemoverCotas(int quantidade)
         {
             if (quantidade <= 0)
@@ -46,6 +48,5 @@ namespace Domain.Entities
             }
             QtdCotas -= quantidade;
         }
-
     }
 }

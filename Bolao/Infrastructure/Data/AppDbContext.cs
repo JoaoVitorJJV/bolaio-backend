@@ -21,10 +21,11 @@ namespace UFRA.Bolaio.API.Data
         public DbSet<Transacao> Transacoes { get; set; }
         public DbSet<Bolao> Boloes { get; set; }
         public DbSet<Palpites> Palpites { get; set; }
+        public DbSet<Partida> Partidas { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
+            //.HasDefaultValueSql("gen_random_uuid()");
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Usuario>()
                 .HasOne(u => u.Carteira)
