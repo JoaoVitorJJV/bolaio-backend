@@ -1,10 +1,13 @@
-﻿using Application.Interfaces;
+﻿using Application.DTOs;
+using Application.Interfaces;
 using Domain.Entities;
+using Domain.Enums;
 using Domain.Exceptions;
 using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static Application.DTOs.UsuarioDtos;
 
 namespace Application.Services
 {
@@ -18,15 +21,20 @@ namespace Application.Services
         public async Task<decimal> DepositarAsync(Guid usuarioId, decimal valor)
         {
             var carteira = await _carteiraRepository.GetCarteiraByUsuarioIdAsync(usuarioId);
-            
+
             if (carteira is null)
                 throw new DomainException("Carteira não encontrada.");
-            
+
             carteira.Depositar(valor);
 
             await _carteiraRepository.UpdateAsync(carteira);
 
             return carteira.SaldoAtual;
+        }
+        public Task<GetLimitesResponseDto> ObterLimitesAsync(Guid guid)
+        {
+            GetLimitesResponseDto limites = new GetLimitesResponseDto(50, 200);
+            return Task.FromResult(limites);
         }
 
         public async Task<decimal> ObterSaldoAsync(Guid usuarioId)

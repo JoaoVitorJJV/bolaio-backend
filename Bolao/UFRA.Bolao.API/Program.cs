@@ -3,6 +3,7 @@ using Application.Services;
 using Domain.Interfaces;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -79,6 +80,22 @@ builder.Services.AddScoped<ICarteiraRepository, CarteiraRepository>();
 builder.Services.AddScoped<IBolaoRepository, BolaoRepository>();
 builder.Services.AddScoped<IBolaoService,BolaoService>();
 builder.Services.AddScoped<IBolaoQueries,BolaoQueriesService>();
+
+//builder.Services.AddMassTransit(x =>
+//{
+//    x.AddConsumer<ProcessarPagamentoConsumer>();
+
+//    x.UsingRabbitMq((context, cfg) =>
+//    {
+//        cfg.Host("localhost", "/", h =>
+//        {
+//            h.Username("guest");
+//            h.Password("guest");
+//        });
+
+//        cfg.ConfigureEndpoints(context);
+//    });
+//});
 
 
 var jwtKey = builder.Configuration["Jwt:Key"];

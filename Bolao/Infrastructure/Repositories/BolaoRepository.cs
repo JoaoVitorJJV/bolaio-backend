@@ -21,34 +21,36 @@ namespace Infrastructure.Repositories
             await _appDbContext.Boloes.AddAsync(bolao);
         }
 
-        public async Task<List<ListarBoloesDto>> ListarBoloes()
-        {
-            var resultado = await _appDbContext.Boloes
-                                                .Where(x => x.Visibilidade == Domain.Enums.TipoVisibilidade.Publico)
-                                                .Select(b => new ListarBoloesDto(
-                                                    b.Id,
-                                                    b.Nome,
-                                                    b.Visibilidade,
-                                                    b.Valor,
-                                                    b.DataFechamento,
-                                                    b.TipoBolao,
-                                                    b.Organizador.Nome,
-                                                    b.Palpites
-                                                        .Select(p => p.Participante.Id) // Ou p.UsuarioId
-                                                        .Distinct()
-                                                        .Count().ToString(),
-                                                    b.Premio
-                                                        )
-                                                )
-                                                .AsNoTracking()
-                                                .ToListAsync();
-            return resultado;
-            //return await _appDbContext.Boloes
-            //    .Include(x=>x.Organizador).Include(p=>p.Palpites.Select(u=>u.Participante.Id).Distinct().Count())
-            //    .Where(x=>x.Visibilidade == Domain.Enums.TipoVisibilidade.Publico)
-            //    .AsNoTracking()
-            //    .ToListAsync();
-        }
+        //public async Task<List<ListarBoloesDto>> ListarBoloes()
+        //{
+        //    var resultado = await _appDbContext.Boloes
+        //                                        .Where(x => x.Visibilidade == Domain.Enums.TipoVisibilidade.Publico)
+        //                                        .Select(b => new ListarBoloesDto(
+        //                                            b.Id,
+        //                                            b.Nome,
+        //                                            b.Visibilidade,
+        //                                            b.Valor,
+        //                                            b.DataFechamento,
+        //                                            b.TipoBolao,
+        //                                            b.Organizador.Nome,
+        //                                            b.Palpites
+        //                                                .Select(p => p.Participante.Id) // Ou p.UsuarioId
+        //                                                .Distinct()
+        //                                                .Count().ToString(),
+        //                                            b.Premio,
+        //                                            b.Partida.TimeA.Nome,
+        //        b.Partida.TimeB.Nome
+        //                                                )
+        //                                        )
+        //                                        .AsNoTracking()
+        //                                        .ToListAsync();
+        //    return resultado;
+        //    //return await _appDbContext.Boloes
+        //    //    .Include(x=>x.Organizador).Include(p=>p.Palpites.Select(u=>u.Participante.Id).Distinct().Count())
+        //    //    .Where(x=>x.Visibilidade == Domain.Enums.TipoVisibilidade.Publico)
+        //    //    .AsNoTracking()
+        //    //    .ToListAsync();
+        //}
 
         public async Task<Partida?> ObterPartidaPorIdAsync(Guid partidaId)
         {

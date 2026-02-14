@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "3s7OMluZq5k=",
+  "dgSpecHash": "ZmTzyjotzL0=",
   "success": true,
   "projectFilePath": "C:\\Users\\victor\\Documents\\GitHub\\bolaio-backend\\Bolao\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\victor\\.nuget\\packages\\efcore.namingconventions\\10.0.0\\efcore.namingconventions.10.0.0.nupkg.sha512",
     "C:\\Users\\victor\\.nuget\\packages\\fluentvalidation\\12.1.1\\fluentvalidation.12.1.1.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\masstransit\\9.0.1\\masstransit.9.0.1.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\masstransit.abstractions\\9.0.1\\masstransit.abstractions.9.0.1.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\masstransit.rabbitmq\\9.0.1\\masstransit.rabbitmq.9.0.1.nupkg.sha512",
     "C:\\Users\\victor\\.nuget\\packages\\microsoft.entityframeworkcore\\10.0.2\\microsoft.entityframeworkcore.10.0.2.nupkg.sha512",
     "C:\\Users\\victor\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\10.0.2\\microsoft.entityframeworkcore.abstractions.10.0.2.nupkg.sha512",
     "C:\\Users\\victor\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\10.0.2\\microsoft.entityframeworkcore.analyzers.10.0.2.nupkg.sha512",
@@ -16,6 +19,11 @@
     "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\10.0.2\\microsoft.extensions.configuration.abstractions.10.0.2.nupkg.sha512",
     "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\10.0.2\\microsoft.extensions.dependencyinjection.10.0.2.nupkg.sha512",
     "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.2\\microsoft.extensions.dependencyinjection.abstractions.10.0.2.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.diagnostics.abstractions\\10.0.0\\microsoft.extensions.diagnostics.abstractions.10.0.0.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.diagnostics.healthchecks\\10.0.0\\microsoft.extensions.diagnostics.healthchecks.10.0.0.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.diagnostics.healthchecks.abstractions\\10.0.0\\microsoft.extensions.diagnostics.healthchecks.abstractions.10.0.0.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\10.0.0\\microsoft.extensions.fileproviders.abstractions.10.0.0.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.hosting.abstractions\\10.0.0\\microsoft.extensions.hosting.abstractions.10.0.0.nupkg.sha512",
     "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.logging\\10.0.2\\microsoft.extensions.logging.10.0.2.nupkg.sha512",
     "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\10.0.2\\microsoft.extensions.logging.abstractions.10.0.2.nupkg.sha512",
     "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.options\\10.0.2\\microsoft.extensions.options.10.0.2.nupkg.sha512",
@@ -26,7 +34,9 @@
     "C:\\Users\\victor\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.15.0\\microsoft.identitymodel.tokens.8.15.0.nupkg.sha512",
     "C:\\Users\\victor\\.nuget\\packages\\npgsql\\10.0.0\\npgsql.10.0.0.nupkg.sha512",
     "C:\\Users\\victor\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\10.0.0\\npgsql.entityframeworkcore.postgresql.10.0.0.nupkg.sha512",
-    "C:\\Users\\victor\\.nuget\\packages\\system.identitymodel.tokens.jwt\\8.15.0\\system.identitymodel.tokens.jwt.8.15.0.nupkg.sha512"
+    "C:\\Users\\victor\\.nuget\\packages\\rabbitmq.client\\7.2.0\\rabbitmq.client.7.2.0.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\system.identitymodel.tokens.jwt\\8.15.0\\system.identitymodel.tokens.jwt.8.15.0.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\system.threading.ratelimiting\\8.0.0\\system.threading.ratelimiting.8.0.0.nupkg.sha512"
   ],
   "logs": []
 }

@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Exceptions;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using UFRA.Bolao.API.Extensions;
@@ -12,16 +13,18 @@ namespace UFRA.Bolao.API.Endpoints
         public static void MapCarteiraEndpoints(this IEndpointRouteBuilder routes)
         {
             var group = routes.MapGroup("/carteira")
-             .RequireAuthorization() 
+             .RequireAuthorization()
              .WithTags("Carteira")
              .WithSummary("Gerencia saldo e saque da carteira do usuário").WithDescription("Endpoints para gerenciamento da carteira do usuário.");
 
             group.MapGet("/saldo", GetSaldo);
             group.MapPost("/depositar", Depositar);
+            group.MapGet("/extrato", GetExtrato);
+            group.MapGet("/limites", GetLimites);
         }
 
-       
-        private static async Task<IResult> GetSaldo([FromServices] ICarteiraService service,ClaimsPrincipal user)
+
+        private static async Task<IResult> GetSaldo([FromServices] ICarteiraService service, ClaimsPrincipal user)
         {
             try
             {
@@ -34,7 +37,7 @@ namespace UFRA.Bolao.API.Endpoints
             }
         }
 
-        private static async Task<IResult> Depositar([FromBody] DepositoDto dto,[FromServices] ICarteiraService service, ClaimsPrincipal user)
+        private static async Task<IResult> Depositar([FromBody] DepositoDto dto, [FromServices] ICarteiraService service, ClaimsPrincipal user)
         {
             try
             {
@@ -47,6 +50,25 @@ namespace UFRA.Bolao.API.Endpoints
                 return Results.BadRequest(new { Erro = ex.Message });
             }
         }
-        
+
+        private static async Task<IResult> GetExtrato([FromServices] IBolaoQueries service, ClaimsPrincipal user)
+        {
+            var extrato = await service.GetExtrato(user.GetId());
+            return Results.Ok(extrato);
+        }
+
+        private static async Task<IResult> GetLimites([FromServices] ICarteiraService service, ClaimsPrincipal user)
+        {
+            try
+            {
+                var limites = await service.ObterLimitesAsync(user.GetId());
+                return Results.Ok(limites);
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(new { Erro = ex.Message });
+            }
+
+        }
     }
 }

@@ -3,6 +3,8 @@ class Carteira {
     + SaldoAtual : decimal <<get>> = 0
     + Depositar(valor:decimal) : void
     + Sacar(valor:decimal) : void
+    + Debitar(valor:decimal) : Transacao
+    + RegistrarTransacao(transacao:Transacao) : Transacao
 }
 class "List`1"<T> {
 }

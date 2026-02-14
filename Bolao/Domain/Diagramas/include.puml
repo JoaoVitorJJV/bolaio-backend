@@ -3,8 +3,12 @@ class Bolao {
     + Nome : string <<get>>
     + Ativo : bool <<get>> = true
     + Valor : decimal <<get>> = 0.00M
+    + qtdParticipantes : int <<get>> = 0
+    + Premio : string <<get>> = "0"
+    + TaxaAdministrativa : decimal <<get>> = 0.05M
+    + MaxParticipantes : int <<get>> = 1
     + Bolao()
-    + Bolao(organizador:Usuario, nome:string, visibilidade:TipoVisibilidade, valor:decimal, dtFechamento:DateTime, tipoBolao:TipoBolao)
+    + Bolao(organizador:Usuario, nome:string, visibilidade:TipoVisibilidade, valor:decimal, dtFechamento:DateTime, tipoBolao:TipoBolao, maxParticipantes:int, partida:Partida)
     + AdicionarPalpite(palpite:Palpites) : void
     + RemoverPalpite(palpite:Palpites) : void
     + CalcularPremioTotal() : decimal
@@ -20,10 +24,13 @@ Bolao --> "Visibilidade" TipoVisibilidade
 Bolao o-> "Palpites<Palpites>" "List`1"
 Bolao o-> "TipoEsporte" TipoEsporte
 Bolao --> "TipoBolao" TipoBolao
+Bolao --> "Partida" Partida
 class Carteira {
     + SaldoAtual : decimal <<get>> = 0
     + Depositar(valor:decimal) : void
     + Sacar(valor:decimal) : void
+    + Debitar(valor:decimal) : Transacao
+    + RegistrarTransacao(transacao:Transacao) : Transacao
 }
 class "List`1"<T> {
 }
@@ -34,21 +41,42 @@ Carteira o-> "Transacoes<Transacao>" "List`1"
 class Palpites {
     + QtdCotas : int <<get>> = 1
     + Palpites()
-    + Palpites(usuario:Usuario, bolao:Bolao)
-    + Palpites(usuario:Usuario, bolao:Bolao, qtdCotas:int)
+    + Palpites(usuario:Usuario, bolao:Bolao, transacao:Transacao)
+    + Palpites(usuario:Usuario, bolao:Bolao, qtdCotas:int, transacao:Transacao)
     + AdicionarCotas(quantidade:int) : void
     + RemoverCotas(quantidade:int) : void
 }
 Palpites --> "Id" Guid
 Palpites --> "Participante" Usuario
+Palpites --> "TransacaoId" Guid
+Palpites --> "Transacao" Transacao
 Palpites --> "Bolao" Bolao
+Palpites o-> "DataCriacao" DateTime
+class Partida {
+    + ResultadoTimeA : string <<get>>
+    + ResultadoTimeB : string <<get>>
+    + Partida()
+    + Partida(timeA:Times, timeB:Times, dataPartida:DateTime)
+    + RegistrarResultado(resultadoA:string, resultadoB:string) : void
+}
+Partida --> "Id" Guid
+Partida --> "TimeA" Times
+Partida --> "TimeB" Times
+Partida --> "DataPartida" DateTime
+class Times {
+    + Nome : string <<get>>
+    + Sigla : string <<get>>
+    + BandeiraUrl : string <<get>>
+    + Times(nome:string, sigla:string, bandeiraUrl:string)
+}
+Times --> "Id" Guid
 class Transacao {
     + Valor : decimal <<get>> <<set>>
-    + CarteiraId : int <<get>> <<set>>
 }
 Transacao --> "Id" Guid
 Transacao o-> "DataHora" DateTime
 Transacao --> "Tipo" TipoTransacao
+Transacao --> "CarteiraId" Guid
 Transacao o-> "Carteira" Carteira
 class Usuario {
     + Nome : string <<get>>

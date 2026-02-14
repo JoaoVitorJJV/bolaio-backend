@@ -1,0 +1,9 @@
+@startuml
+class Times {
+    + Nome : string <<get>>
+    + Sigla : string <<get>>
+    + BandeiraUrl : string <<get>>
+    + Times(nome:string, sigla:string, bandeiraUrl:string)
+}
+Times --> "Id" Guid
+@enduml

@@ -22,6 +22,9 @@ namespace UFRA.Bolaio.API.Data
         public DbSet<Bolao> Boloes { get; set; }
         public DbSet<Palpites> Palpites { get; set; }
         public DbSet<Partida> Partidas { get; set; }
+        public DbSet<Grupo> Grupos { get; set; }
+        public DbSet<Times> Times { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

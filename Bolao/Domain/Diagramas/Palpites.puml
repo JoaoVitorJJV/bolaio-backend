@@ -2,12 +2,15 @@
 class Palpites {
     + QtdCotas : int <<get>> = 1
     + Palpites()
-    + Palpites(usuario:Usuario, bolao:Bolao)
-    + Palpites(usuario:Usuario, bolao:Bolao, qtdCotas:int)
+    + Palpites(usuario:Usuario, bolao:Bolao, transacao:Transacao)
+    + Palpites(usuario:Usuario, bolao:Bolao, qtdCotas:int, transacao:Transacao)
     + AdicionarCotas(quantidade:int) : void
     + RemoverCotas(quantidade:int) : void
 }
 Palpites --> "Id" Guid
 Palpites --> "Participante" Usuario
+Palpites --> "TransacaoId" Guid
+Palpites --> "Transacao" Transacao
 Palpites --> "Bolao" Bolao
+Palpites o-> "DataCriacao" DateTime
 @enduml

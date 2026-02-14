@@ -1,10 +1,25 @@
 {
   "version": 2,
-  "dgSpecHash": "EZdEdSoBymU=",
+  "dgSpecHash": "bZRE7nRHA60=",
   "success": true,
   "projectFilePath": "C:\\Users\\victor\\Documents\\GitHub\\bolaio-backend\\Bolao\\Application\\Application.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\victor\\.nuget\\packages\\fluentvalidation\\12.1.1\\fluentvalidation.12.1.1.nupkg.sha512"
+    "C:\\Users\\victor\\.nuget\\packages\\fluentvalidation\\12.1.1\\fluentvalidation.12.1.1.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\masstransit\\9.0.1\\masstransit.9.0.1.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\masstransit.abstractions\\9.0.1\\masstransit.abstractions.9.0.1.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\masstransit.rabbitmq\\9.0.1\\masstransit.rabbitmq.9.0.1.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\10.0.0\\microsoft.extensions.configuration.abstractions.10.0.0.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.0\\microsoft.extensions.dependencyinjection.abstractions.10.0.0.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.diagnostics.abstractions\\10.0.0\\microsoft.extensions.diagnostics.abstractions.10.0.0.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.diagnostics.healthchecks\\10.0.0\\microsoft.extensions.diagnostics.healthchecks.10.0.0.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.diagnostics.healthchecks.abstractions\\10.0.0\\microsoft.extensions.diagnostics.healthchecks.abstractions.10.0.0.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\10.0.0\\microsoft.extensions.fileproviders.abstractions.10.0.0.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.hosting.abstractions\\10.0.0\\microsoft.extensions.hosting.abstractions.10.0.0.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\10.0.0\\microsoft.extensions.logging.abstractions.10.0.0.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.options\\10.0.0\\microsoft.extensions.options.10.0.0.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\microsoft.extensions.primitives\\10.0.0\\microsoft.extensions.primitives.10.0.0.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\rabbitmq.client\\7.2.0\\rabbitmq.client.7.2.0.nupkg.sha512",
+    "C:\\Users\\victor\\.nuget\\packages\\system.threading.ratelimiting\\8.0.0\\system.threading.ratelimiting.8.0.0.nupkg.sha512"
   ],
   "logs": []
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using UFRA.Bolaio.API.Data;
@@ -11,9 +12,11 @@ using UFRA.Bolaio.API.Data;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260206150254_statustransacaoenum")]
+    partial class statustransacaoenum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,24 +132,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("carteiras", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Grupo", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Letra")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("letra");
-
-                    b.HasKey("Id")
-                        .HasName("pk_grupos");
-
-                    b.ToTable("grupos", (string)null);
-                });
-
             modelBuilder.Entity("Domain.Entities.Palpites", b =>
                 {
                     b.Property<Guid>("Id")
@@ -242,15 +227,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("bandeira_url");
 
-                    b.Property<string>("Confederacao")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("confederacao");
-
-                    b.Property<Guid?>("GrupoId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("grupo_id");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("text")
@@ -263,9 +239,6 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_times");
-
-                    b.HasIndex("GrupoId")
-                        .HasDatabaseName("ix_times_grupo_id");
 
                     b.ToTable("times", (string)null);
                 });
@@ -288,14 +261,6 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("DataHora")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("data_hora");
-
-                    b.Property<string>("ExternalReference")
-                        .HasColumnType("text")
-                        .HasColumnName("external_reference");
-
-                    b.Property<string>("QrCode")
-                        .HasColumnType("text")
-                        .HasColumnName("qr_code");
 
                     b.Property<int?>("Status")
                         .HasColumnType("integer")
@@ -449,14 +414,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("TimeB");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Times", b =>
-                {
-                    b.HasOne("Domain.Entities.Grupo", null)
-                        .WithMany("Selecoes")
-                        .HasForeignKey("GrupoId")
-                        .HasConstraintName("fk_times_grupos_grupo_id");
-                });
-
             modelBuilder.Entity("Domain.Entities.Transacao", b =>
                 {
                     b.HasOne("Domain.Entities.Bolao", "Bolao")
@@ -484,11 +441,6 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Carteira", b =>
                 {
                     b.Navigation("Transacoes");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Grupo", b =>
-                {
-                    b.Navigation("Selecoes");
                 });
 
             modelBuilder.Entity("Domain.Entities.Usuario", b =>

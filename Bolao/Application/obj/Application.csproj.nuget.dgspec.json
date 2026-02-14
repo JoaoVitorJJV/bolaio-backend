@@ -58,6 +58,10 @@
             "FluentValidation": {
               "target": "Package",
               "version": "[12.1.1, )"
+            },
+            "MassTransit.RabbitMQ": {
+              "target": "Package",
+              "version": "[9.0.1, )"
             }
           },
           "imports": [

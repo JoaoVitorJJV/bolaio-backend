@@ -3,8 +3,12 @@ class Bolao {
     + Nome : string <<get>>
     + Ativo : bool <<get>> = true
     + Valor : decimal <<get>> = 0.00M
+    + qtdParticipantes : int <<get>> = 0
+    + Premio : string <<get>> = "0"
+    + TaxaAdministrativa : decimal <<get>> = 0.05M
+    + MaxParticipantes : int <<get>> = 1
     + Bolao()
-    + Bolao(organizador:Usuario, nome:string, visibilidade:TipoVisibilidade, valor:decimal, dtFechamento:DateTime, tipoBolao:TipoBolao)
+    + Bolao(organizador:Usuario, nome:string, visibilidade:TipoVisibilidade, valor:decimal, dtFechamento:DateTime, tipoBolao:TipoBolao, maxParticipantes:int, partida:Partida)
     + AdicionarPalpite(palpite:Palpites) : void
     + RemoverPalpite(palpite:Palpites) : void
     + CalcularPremioTotal() : decimal
@@ -20,4 +24,5 @@ Bolao --> "Visibilidade" TipoVisibilidade
 Bolao o-> "Palpites<Palpites>" "List`1"
 Bolao o-> "TipoEsporte" TipoEsporte
 Bolao --> "TipoBolao" TipoBolao
+Bolao --> "Partida" Partida
 @enduml

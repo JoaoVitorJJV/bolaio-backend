@@ -1,0 +1,13 @@
+@startuml
+class Partida {
+    + ResultadoTimeA : string <<get>>
+    + ResultadoTimeB : string <<get>>
+    + Partida()
+    + Partida(timeA:Times, timeB:Times, dataPartida:DateTime)
+    + RegistrarResultado(resultadoA:string, resultadoB:string) : void
+}
+Partida --> "Id" Guid
+Partida --> "TimeA" Times
+Partida --> "TimeB" Times
+Partida --> "DataPartida" DateTime
+@enduml
