@@ -81,21 +81,21 @@ builder.Services.AddScoped<IBolaoRepository, BolaoRepository>();
 builder.Services.AddScoped<IBolaoService,BolaoService>();
 builder.Services.AddScoped<IBolaoQueries,BolaoQueriesService>();
 
-//builder.Services.AddMassTransit(x =>
-//{
-//    x.AddConsumer<ProcessarPagamentoConsumer>();
+builder.Services.AddMassTransit(x =>
+{
+    // Configura o Consumidor (apenas no serviço que vai processar a pontuação)
+    //x.AddConsumer<CalcularPontuacaoConsumidor>();
 
-//    x.UsingRabbitMq((context, cfg) =>
-//    {
-//        cfg.Host("localhost", "/", h =>
-//        {
-//            h.Username("guest");
-//            h.Password("guest");
-//        });
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("localhost", "/", h => {
+            h.Username("guest");
+            h.Password("guest");
+        });
 
-//        cfg.ConfigureEndpoints(context);
-//    });
-//});
+        cfg.ConfigureEndpoints(context);
+    });
+});
 
 
 var jwtKey = builder.Configuration["Jwt:Key"];

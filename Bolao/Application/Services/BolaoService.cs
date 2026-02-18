@@ -1,10 +1,12 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
 using Domain.Entities;
+using Domain.Enums;
 using Domain.Exceptions;
 using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using static Application.DTOs.BolaoDto;
@@ -26,7 +28,7 @@ namespace Application.Services
             {
                 throw new DomainException("Usuário inválido");
             }
-            var partida = await _bolaoRepository.ObterPartidaPorIdAsync(Dto.partidaId);
+  /*          var partida = await _bolaoRepository.ObterPartidaPorIdAsync(Dto.partidaId);
             if (partida == null)
             {
                 throw new DomainException("Partida não encontrada");
@@ -35,13 +37,32 @@ namespace Application.Services
             if (partida.DataPartida <= DateTime.Now)
             {
                 throw new DomainException("Não é possível criar um bolão para uma partida já iniciada ou encerrada");
-            }
+            }*/
 
 
-            Bolao bolao = new Bolao(Dto.Organizador, Dto.Nome, Dto.Visibilidade, Dto.Valor, Dto.DtFechamento, Dto.TipoBolao,Dto.maxParticipantes, partida);
+            Bolao bolao = new Bolao(Dto.Organizador, Dto.Nome, Dto.Visibilidade, Dto.Valor, Dto.DtFechamento, Dto.TipoBolao,Dto.maxParticipantes, Dto.partidaId);
             await _bolaoRepository.AdicionarAsync(bolao);
             await _bolaoRepository.SaveChangesAsync();
             return new CriarBolaoResponseDto(bolao.Nome, bolao.DataFechamento, Dto.Organizador.Nome);
+        }
+
+        public List<TiposBolao> ObterTiposBolao()
+        {
+            return Enum.GetValues(typeof(TipoBolao))
+                .Cast<TipoBolao>()
+                .Select( tb=> new TiposBolao((int)tb, tb.ToString())).ToList();
+        }
+
+        public List<VisibilidadeDto> ObterVisibilidadeBolao()
+        {
+            return Enum.GetValues(typeof(TipoVisibilidade))
+                .Cast<TipoVisibilidade>()
+                .Select(tb => new VisibilidadeDto((int)tb, tb.ToString())).ToList();
+        }
+
+        public Task ProcessarPontuacaoPartidaAsync(Guid partidaId, int golsMandante, int golsVisitante)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task RegistrarPalpiteAsync(RegistrarPalpiteDto dto, Guid idUsuario)
@@ -59,5 +80,7 @@ namespace Application.Services
             bolao.AdicionarPalpite(palpite);
             await _bolaoRepository.SaveChangesAsync();
         }
+
+
     }
 }

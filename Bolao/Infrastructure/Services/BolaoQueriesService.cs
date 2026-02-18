@@ -27,7 +27,8 @@ namespace Infrastructure.Services
                 .Select(
                         s => new GetExtratoResponseDto(
                             s.DataHora.ToString(),
-                            s.Bolao != null? $"({s.Tipo.ToString()}) "+s.Bolao.Partida.TimeA.Sigla + " x " + s.Bolao.Partida.TimeB.Sigla: $"{s.Tipo.ToString()}",
+                            //s.Bolao != null? $"({s.Tipo.ToString()}) "+s.Bolao.Partida.TimeA.Sigla + " x " + s.Bolao.Partida.TimeB.Sigla: $"{s.Tipo.ToString()}",
+                            "A x B",
                             s.Status.ToString(),
                             s.Valor)
                      ).AsNoTracking().ToListAsync();
@@ -49,9 +50,10 @@ namespace Infrastructure.Services
                 b.Organizador.Nome,
                 b.Palpites.Select(p => p.Participante.Id).Distinct().Count().ToString(),
                 b.Premio,
-                b.Partida.TimeA.Nome,
-                b.Partida.TimeB.Nome,
-                b.Partida.ResultadoTimeA + " - " + b.Partida.ResultadoTimeB
+                //b.Partida.TimeA.Nome,
+                //b.Partida.TimeB.Nome,
+                //b.Partida.ResultadoTimeA + " - " + b.Partida.ResultadoTimeB
+                "timeA","timeB", "0 - 0"
                 ))
             .AsNoTracking()
             .ToListAsync();

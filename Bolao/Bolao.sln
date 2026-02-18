@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens
 		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FutebolWorker", "FutebolWorker\FutebolWorker.csproj", "{720E82A1-BD18-434B-B590-BE6BE7E7D0F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{86F093B2-73BC-451D-A4BA-5DD484B68AA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86F093B2-73BC-451D-A4BA-5DD484B68AA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86F093B2-73BC-451D-A4BA-5DD484B68AA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{720E82A1-BD18-434B-B590-BE6BE7E7D0F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{720E82A1-BD18-434B-B590-BE6BE7E7D0F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{720E82A1-BD18-434B-B590-BE6BE7E7D0F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{720E82A1-BD18-434B-B590-BE6BE7E7D0F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

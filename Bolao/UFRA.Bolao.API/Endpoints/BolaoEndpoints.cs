@@ -1,5 +1,6 @@
 ﻿
 using Application.Interfaces;
+using Application.Services;
 using Domain.Exceptions;
 using Domain.Interfaces;
 using Infrastructure.Repositories;
@@ -23,6 +24,36 @@ namespace UFRA.Bolao.API.Endpoints
             group.MapGet("/listar", ListarBoloes);
             group.MapPost("/registrar_bolao", NovoBolao);
             group.MapPost("/registrar_palpite",RegistrarPalpite);
+            group.MapGet("/tipo_bolao",GetTipoBolao);
+            group.MapGet("/visibilidade", GetVisibiliadeBolao);
+        }
+
+        private static Task<IResult> GetTipoBolao([FromServices] IBolaoService bolaoService)
+        {
+            var resultado = bolaoService.ObterTiposBolao();
+
+            if(resultado.Any())
+            {
+                return Task.FromResult(Results.Ok(resultado));
+            }
+            else
+            {
+                return Task.FromResult(Results.NotFound(new { message = "Nenhum tipo de bolão encontrado." }));
+            }
+        }
+
+        private static Task<IResult> GetVisibiliadeBolao([FromServices] IBolaoService bolaoService)
+        {
+            var resultado = bolaoService.ObterVisibilidadeBolao();
+
+            if (resultado.Any())
+            {
+                return Task.FromResult(Results.Ok(resultado));
+            }
+            else
+            {
+                return Task.FromResult(Results.NotFound(new { message = "Nenhum tipo visibilidade foi encontrado" }));
+            }
         }
 
         private static async Task<IResult> ListarBoloes([FromServices] IBolaoQueries bolaoQueries)
