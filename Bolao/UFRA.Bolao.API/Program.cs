@@ -59,6 +59,7 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddHttpClient();
 
 
 builder.Services.AddDbContext<AppDbContext>(options => {
@@ -80,6 +81,9 @@ builder.Services.AddScoped<ICarteiraRepository, CarteiraRepository>();
 builder.Services.AddScoped<IBolaoRepository, BolaoRepository>();
 builder.Services.AddScoped<IBolaoService,BolaoService>();
 builder.Services.AddScoped<IBolaoQueries,BolaoQueriesService>();
+builder.Services.AddScoped<IAdminRepository,AdminRepository>();
+builder.Services.AddScoped<IAdminService,AdminService>();
+
 
 builder.Services.AddMassTransit(x =>
 {
@@ -161,5 +165,6 @@ app.UseAuthorization();
 app.MapAuthEndpoints();
 app.MapCarteiraEndpoints();
 app.MapBolaoEndpoints();
+app.MapAdminEndpoints();
 
 app.Run();

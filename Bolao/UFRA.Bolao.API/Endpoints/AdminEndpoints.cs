@@ -14,13 +14,14 @@ namespace UFRA.Bolao.API.Endpoints
               .WithSummary("")
               .WithDescription("");
 
-            group.MapGet("/listar", AtualizaTimes);
+            group.MapPost("/atualizarTimes", AtualizaTimes);
             
         }
 
         private static async Task AtualizaTimes([FromServices] IAdminService adminService)
         {
             await adminService.AtualizaTimes();
+            
 
         }
     }

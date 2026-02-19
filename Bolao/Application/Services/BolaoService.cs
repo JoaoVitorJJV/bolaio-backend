@@ -46,6 +46,12 @@ namespace Application.Services
             return new CriarBolaoResponseDto(bolao.Nome, bolao.DataFechamento, Dto.Organizador.Nome);
         }
 
+        public async Task<List<GetTimesDto>> GetTimes()
+        {
+            var res = await _bolaoRepository.GetTimes();
+            return res.Select(x=>new GetTimesDto(x.Id.ToString(),x.Nome,x.BandeiraUrl)).ToList();
+        }
+
         public List<TiposBolao> ObterTiposBolao()
         {
             return Enum.GetValues(typeof(TipoBolao))

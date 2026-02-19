@@ -26,6 +26,21 @@ namespace UFRA.Bolao.API.Endpoints
             group.MapPost("/registrar_palpite",RegistrarPalpite);
             group.MapGet("/tipo_bolao",GetTipoBolao);
             group.MapGet("/visibilidade", GetVisibiliadeBolao);
+            group.MapGet("/times", GetTimesBolao);
+        }
+
+        private static async Task<IResult> GetTimesBolao([FromServices] IBolaoService  bolaoService)
+        {
+            var resultado = await bolaoService.GetTimes();
+            if (resultado.Any())
+            {
+                return Results.Ok(resultado);
+            }
+            else
+            {
+                return Results.NotFound();
+            }
+            
         }
 
         private static Task<IResult> GetTipoBolao([FromServices] IBolaoService bolaoService)

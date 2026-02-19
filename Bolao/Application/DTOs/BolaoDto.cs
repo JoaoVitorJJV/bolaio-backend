@@ -28,5 +28,6 @@ namespace Application.DTOs
         public record RegistrarPalpiteDto(Guid BolaoId, int GolsTimeA, int GolsTimeB);
         public record TiposBolao(int id, string descricao);
         public record VisibilidadeDto(int id, string visibilidade);
+        public record GetTimesDto(string Id, string Nome, string Bandeira);
     }
 }

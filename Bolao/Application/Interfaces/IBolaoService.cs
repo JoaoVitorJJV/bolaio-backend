@@ -11,6 +11,7 @@ namespace Application.Interfaces
     public interface IBolaoService
     {
         Task<CriarBolaoResponseDto> CriarBolaoAsync(CriarBolaoDto bolaoDto);
+        Task<List<GetTimesDto>> GetTimes();
         List<TiposBolao> ObterTiposBolao();
         List<VisibilidadeDto> ObterVisibilidadeBolao();
         Task ProcessarPontuacaoPartidaAsync(Guid partidaId, int golsMandante, int golsVisitante);

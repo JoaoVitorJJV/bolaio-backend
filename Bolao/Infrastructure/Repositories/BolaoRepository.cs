@@ -21,6 +21,11 @@ namespace Infrastructure.Repositories
             await _appDbContext.Boloes.AddAsync(bolao);
         }
 
+        public async Task<List<Times>> GetTimes()
+        {
+            return await _appDbContext.Times.AsNoTracking().ToListAsync();
+        }
+
         //public async Task<List<ListarBoloesDto>> ListarBoloes()
         //{
         //    var resultado = await _appDbContext.Boloes
