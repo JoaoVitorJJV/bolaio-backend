@@ -9,7 +9,7 @@ namespace Domain.Entities
         public Guid Id { get; private set; }
         public Times TimeA { get; private set; }
         public Times TimeB { get; private set; }
-        public DateTime DataPartida { get; private set; }
+        public DateTime DataPartida { get; private set; }        
         public string ResultadoTimeA { get; private set; }
         public string ResultadoTimeB { get; private set; }
 

@@ -3,6 +3,7 @@ using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using UFRA.Bolaio.API.Data;
 using static Application.DTOs.BolaoDto;
@@ -19,6 +20,11 @@ namespace Infrastructure.Repositories
         public async Task AdicionarAsync(Bolao bolao)
         {
             await _appDbContext.Boloes.AddAsync(bolao);
+        }
+
+        public async Task<List<Partida>> GetPartidas()
+        {
+            return await _appDbContext.Partidas.Include(x=> x.TimeA).Include(x=>x.TimeB).AsNoTracking().Where(p=>p.DataPartida >= DateTime.Now).ToListAsync();
         }
 
         public async Task<List<Times>> GetTimes()

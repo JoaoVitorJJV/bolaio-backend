@@ -12,6 +12,7 @@ namespace Application.Interfaces
     {
         Task<CriarBolaoResponseDto> CriarBolaoAsync(CriarBolaoDto bolaoDto);
         Task<List<GetTimesDto>> GetTimes();
+        Task<List<GetPartidasDto>> ListarPartidas();
         List<TiposBolao> ObterTiposBolao();
         List<VisibilidadeDto> ObterVisibilidadeBolao();
         Task ProcessarPontuacaoPartidaAsync(Guid partidaId, int golsMandante, int golsVisitante);

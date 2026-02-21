@@ -27,6 +27,7 @@ namespace UFRA.Bolao.API.Endpoints
             group.MapGet("/tipo_bolao",GetTipoBolao);
             group.MapGet("/visibilidade", GetVisibiliadeBolao);
             group.MapGet("/times", GetTimesBolao);
+            group.MapGet("/listar_Partidas", ListarPartidas);
         }
 
         private static async Task<IResult> GetTimesBolao([FromServices] IBolaoService  bolaoService)
@@ -91,6 +92,19 @@ namespace UFRA.Bolao.API.Endpoints
                     ?? throw new UnauthorizedAccessException());
             await bolaoService.RegistrarPalpiteAsync(dto, userId);
             return Results.Ok(new { message = "Palpite registrado com sucesso!" });
+        }
+
+        private static async Task<IResult> ListarPartidas([FromServices] IBolaoService bolaoService)
+        {
+            var resultado = await bolaoService.ListarPartidas();
+            if(resultado.Any())
+            {
+                return Results.Ok(resultado);
+            }
+            else
+            {
+                return Results.NotFound();
+            }
         }
     }
 }

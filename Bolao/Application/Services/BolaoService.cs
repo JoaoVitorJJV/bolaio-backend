@@ -28,19 +28,19 @@ namespace Application.Services
             {
                 throw new DomainException("Usuário inválido");
             }
-  /*          var partida = await _bolaoRepository.ObterPartidaPorIdAsync(Dto.partidaId);
-            if (partida == null)
-            {
-                throw new DomainException("Partida não encontrada");
-            }
+                      var partida = await _bolaoRepository.ObterPartidaPorIdAsync(Dto.partidaId);
+                      if (partida == null)
+                      {
+                          throw new DomainException("Partida não encontrada");
+                      }
 
-            if (partida.DataPartida <= DateTime.Now)
-            {
-                throw new DomainException("Não é possível criar um bolão para uma partida já iniciada ou encerrada");
-            }*/
+                      if (partida.DataPartida <= DateTime.Now)
+                      {
+                          throw new DomainException("Não é possível criar um bolão para uma partida já iniciada ou encerrada");
+                      }
 
 
-            Bolao bolao = new Bolao(Dto.Organizador, Dto.Nome, Dto.Visibilidade, Dto.Valor, Dto.DtFechamento, Dto.TipoBolao,Dto.maxParticipantes, Dto.partidaId);
+            Bolao bolao = new Bolao(Dto.Organizador, Dto.Nome, Dto.Visibilidade, Dto.Valor, Dto.DtFechamento, Dto.TipoBolao,Dto.maxParticipantes, partida);
             await _bolaoRepository.AdicionarAsync(bolao);
             await _bolaoRepository.SaveChangesAsync();
             return new CriarBolaoResponseDto(bolao.Nome, bolao.DataFechamento, Dto.Organizador.Nome);
@@ -50,6 +50,12 @@ namespace Application.Services
         {
             var res = await _bolaoRepository.GetTimes();
             return res.Select(x=>new GetTimesDto(x.Id.ToString(),x.Nome,x.BandeiraUrl)).ToList();
+        }
+
+        public async Task<List<GetPartidasDto>> ListarPartidas()
+        {
+            var res = await _bolaoRepository.GetPartidas();            
+            return res.Select(r => new GetPartidasDto(r.Id.ToString(),r.DataPartida, r.TimeA.Nome,r.TimeB.Nome,r.TimeA.BandeiraUrl,r.TimeB.BandeiraUrl)).ToList();
         }
 
         public List<TiposBolao> ObterTiposBolao()

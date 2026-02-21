@@ -8,8 +8,8 @@ namespace Application.DTOs
 {
     public class BolaoDto
     {
-        //public record CriarBolaoDto(Usuario Organizador, string Nome, TipoVisibilidade Visibilidade, decimal Valor, DateTime DtFechamento, TipoBolao TipoBolao,int maxParticipantes, Guid partidaId);
-        public record CriarBolaoDto(Usuario Organizador, string Nome, TipoVisibilidade Visibilidade, decimal Valor, DateTime DtFechamento, TipoBolao TipoBolao,int maxParticipantes, string partidaId);
+        public record CriarBolaoDto(Usuario Organizador, string Nome, TipoVisibilidade Visibilidade, decimal Valor, DateTime DtFechamento, TipoBolao TipoBolao,int maxParticipantes, Guid partidaId);
+        //public record CriarBolaoDto(Usuario Organizador, string Nome, TipoVisibilidade Visibilidade, decimal Valor, DateTime DtFechamento, TipoBolao TipoBolao,int maxParticipantes, string partidaId);
         public record CriarBolaoResponseDto(string Nome,DateTime DtFechamento,string Organizador);
         public record ListarBoloesDto(
             Guid Id,
@@ -29,5 +29,6 @@ namespace Application.DTOs
         public record TiposBolao(int id, string descricao);
         public record VisibilidadeDto(int id, string visibilidade);
         public record GetTimesDto(string Id, string Nome, string Bandeira);
+        public record GetPartidasDto(string Id,DateTime data, string timeA, string timeB, string flagA,string flagB);
     }
 }
