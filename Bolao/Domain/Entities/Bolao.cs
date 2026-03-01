@@ -22,7 +22,7 @@ namespace Domain.Entities
         public int qtdParticipantes { get; private set; } = 0;
         public string Premio { get; private set; } = "0";
         public decimal TaxaAdministrativa { get; private set; } = 0.05M; // 5% de taxa
-        public Partida Partida { get; private set; }
+        public Partida? Partida { get; private set; }
         //public string Partida { get; private set; }
         public int MaxParticipantes { get; private set; } = 1;
         public StatusBolao Status { get; private set; } = StatusBolao.Aberto;

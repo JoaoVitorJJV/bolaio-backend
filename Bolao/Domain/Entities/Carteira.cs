@@ -1,4 +1,5 @@
-﻿using Domain.Exceptions;
+﻿using Domain.Enums;
+using Domain.Exceptions;
 
 namespace Domain.Entities
 {
@@ -25,12 +26,20 @@ namespace Domain.Entities
             RegistrarTransacao(new Transacao { Valor = -valor, Tipo = Enums.TipoTransacao.Saque });
         }
 
-        public Transacao Debitar(decimal valor)
+        public Transacao Debitar(decimal valor,bool aposta)
         {
             if (valor <= 0) throw new DomainException("Valor deve ser maior que zero");
             if (valor > SaldoAtual) throw new DomainException("Saldo insuficiente");
-            SaldoAtual -= valor;           
-            return RegistrarTransacao(new Transacao { Valor = -valor, Tipo = Enums.TipoTransacao.Debito });
+            SaldoAtual -= valor;
+            if (aposta)
+            {
+                return RegistrarTransacao(new Transacao { Valor = -valor, Tipo = Enums.TipoTransacao.Aposta });
+            }
+            else
+            {
+                return RegistrarTransacao(new Transacao { Valor = -valor, Tipo = Enums.TipoTransacao.Debito });
+            }
+            
         }
 
         public Transacao RegistrarTransacao(Transacao transacao)

@@ -4,6 +4,7 @@ using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using UFRA.Bolao.API.Extensions;
+using static Application.DTOs.CarteiraDto;
 using static Application.DTOs.UsuarioDtos;
 
 namespace UFRA.Bolao.API.Endpoints
@@ -15,14 +16,23 @@ namespace UFRA.Bolao.API.Endpoints
             var group = routes.MapGroup("/carteira")
              .RequireAuthorization()
              .WithTags("Carteira")
-             .WithSummary("Gerencia saldo e saque da carteira do usuário").WithDescription("Endpoints para gerenciamento da carteira do usuário.");
+             .WithDescription("Endpoints para gerenciamento da carteira do usuário.");
 
             group.MapGet("/saldo", GetSaldo);
             group.MapPost("/depositar", Depositar);
             group.MapGet("/extrato", GetExtrato);
             group.MapGet("/limites", GetLimites);
+            group.MapPost("/sacar", Sacar);
+            group.MapGet("/investido-em-jogos", GetInvestidoEmJogos);
+            group.MapGet("/taxa-acerto", GetTaxaAcerto);
+            group.MapGet("/lucro-potencial", GetLucroPotencial);
         }
 
+        private static async Task<IResult> Sacar([FromServices] ICarteiraService carteiraService,ClaimsPrincipal user, SacarDto valor)
+        {
+            var saldo = await carteiraService.Sacar(valor, user.GetId());
+            return Results.Ok(new { Mensagem = "Saque realizado!", SaldoAtualizado = saldo });
+        }
 
         private static async Task<IResult> GetSaldo([FromServices] ICarteiraService service, ClaimsPrincipal user)
         {
@@ -69,6 +79,24 @@ namespace UFRA.Bolao.API.Endpoints
                 return Results.BadRequest(new { Erro = ex.Message });
             }
 
+        }
+
+        private static async Task<IResult> GetInvestidoEmJogos([FromServices] ICarteiraService carteiraService, ClaimsPrincipal user)
+        {
+            var result = await carteiraService.GetInvestidoEmJogos(user.GetId());
+            return Results.Ok(result);
+        }
+
+        private static async Task<IResult> GetTaxaAcerto([FromServices] ICarteiraService carteiraService, ClaimsPrincipal user)
+        {
+            var result = await carteiraService.GetTaxaAcerto(user.GetId());
+            return Results.Ok(result);
+        }
+
+        private static async Task<IResult> GetLucroPotencial([FromServices] ICarteiraService carteiraService, ClaimsPrincipal user)
+        {
+            //var result = await carteiraService.GetLucroPotencial(user.GetId());
+            return Results.Ok("10");
         }
     }
 }

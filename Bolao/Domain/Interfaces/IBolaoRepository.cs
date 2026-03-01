@@ -13,5 +13,9 @@ namespace Domain.Interfaces
         Task<Partida?> ObterPartidaPorIdAsync(Guid partidaId);
         Task<Bolao?> ObterPorIdAsync(Guid bolaoId);
         Task SaveChangesAsync();
+        Task<Times> GetTimesByIdAsync(string id);
+        Task<List<Palpites>> GetPalpitesAtivosByUsuarioIdAsync(Guid guid);
+        Task<List<Palpites>> GetPalpitesConcluidosByUsuarioIdAsync(Guid guid);        
+        Task<Bolao> ObterPorIdNoTrackAsync(string bolaoId);
     }
 }

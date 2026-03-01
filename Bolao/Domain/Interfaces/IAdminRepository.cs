@@ -7,6 +7,7 @@ namespace Domain.Interfaces
 {
     public interface IAdminRepository
     {
+        Task CriarPartida(Partida novaPartida);
         public Task NovoTime(Times time);
         public List<Times> ObterTimes();
 

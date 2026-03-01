@@ -6,10 +6,12 @@ using Domain.Exceptions;
 using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using static Application.DTOs.BolaoDto;
+using static Application.DTOs.PalpitesDto;
 
 namespace Application.Services
 {
@@ -46,16 +48,47 @@ namespace Application.Services
             return new CriarBolaoResponseDto(bolao.Nome, bolao.DataFechamento, Dto.Organizador.Nome);
         }
 
+
+
+        public async Task<ListarBoloesDto> GetBolaoByIdNoTrackAsync(string id)
+        {
+            var bolao = await _bolaoRepository.ObterPorIdNoTrackAsync(id);
+            if (bolao == null)
+            {
+                throw new DomainException("Bolão não encontrado");
+            }
+            ListarBoloesDto dto = new ListarBoloesDto(
+                bolao.Id,
+                bolao.Nome,
+                bolao.Visibilidade,
+                bolao.Valor,
+                bolao.DataFechamento,
+                bolao.TipoBolao,
+                bolao.Organizador.Nome,
+                bolao.Palpites.Select(p => p.Participante.Id).Distinct().Count().ToString(),
+                bolao.Premio,
+                bolao.Partida.TimeA.Nome,
+                bolao.Partida.TimeB.Nome,
+                bolao.Partida.ResultadoTimeA + " - " + bolao.Partida.ResultadoTimeB,
+                bolao.MaxParticipantes.ToString(),
+                bolao.Partida.Id.ToString()
+            );
+
+            return dto;
+
+        }
+
         public async Task<List<GetTimesDto>> GetTimes()
         {
             var res = await _bolaoRepository.GetTimes();
             return res.Select(x=>new GetTimesDto(x.Id.ToString(),x.Nome,x.BandeiraUrl)).ToList();
         }
 
+
         public async Task<List<GetPartidasDto>> ListarPartidas()
         {
             var res = await _bolaoRepository.GetPartidas();            
-            return res.Select(r => new GetPartidasDto(r.Id.ToString(),r.DataPartida, r.TimeA.Nome,r.TimeB.Nome,r.TimeA.BandeiraUrl,r.TimeB.BandeiraUrl)).ToList();
+            return res.Select(r => new GetPartidasDto(r.Id.ToString(),r.DataPartida,r.TimeA.Id.ToString(), r.TimeA.Nome,r.TimeB.Id.ToString(),r.TimeB.Nome,r.TimeA.BandeiraUrl,r.TimeB.BandeiraUrl)).ToList();
         }
 
         public List<TiposBolao> ObterTiposBolao()
@@ -87,12 +120,10 @@ namespace Application.Services
 
             var usuario = await _usuarioRepository.ObterPorIdAsync(idUsuario);
 
-            var debito = usuario.Carteira.Debitar(bolao.Valor);
-            Palpites palpite = new Palpites(usuario,bolao,debito);
+            var debito = usuario.Carteira.Debitar(bolao.Valor,true);
+            Palpites palpite = new Palpites(usuario,bolao,debito,dto.GolsTimeA,dto.GolsTimeB);
             bolao.AdicionarPalpite(palpite);
             await _bolaoRepository.SaveChangesAsync();
         }
-
-
     }
 }

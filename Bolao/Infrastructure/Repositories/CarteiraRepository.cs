@@ -21,6 +21,7 @@ namespace Infrastructure.Repositories
             
             return carteira;
         }
+       
 
         public async Task UpdateAsync(Carteira carteira)
         {

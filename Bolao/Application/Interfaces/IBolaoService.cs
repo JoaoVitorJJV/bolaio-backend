@@ -5,13 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using static Application.DTOs.BolaoDto;
+using static Application.DTOs.PalpitesDto;
 
 namespace Application.Interfaces
 {
     public interface IBolaoService
     {
-        Task<CriarBolaoResponseDto> CriarBolaoAsync(CriarBolaoDto bolaoDto);
-        Task<List<GetTimesDto>> GetTimes();
+        Task<CriarBolaoResponseDto> CriarBolaoAsync(CriarBolaoDto bolaoDto);        
+        Task<ListarBoloesDto> GetBolaoByIdNoTrackAsync(string id);
+        Task<List<GetTimesDto>> GetTimes();            
         Task<List<GetPartidasDto>> ListarPartidas();
         List<TiposBolao> ObterTiposBolao();
         List<VisibilidadeDto> ObterVisibilidadeBolao();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,14 +10,15 @@ namespace Domain.Entities
         public Guid Id { get; private set; }
         public Times TimeA { get; private set; }
         public Times TimeB { get; private set; }
-        public DateTime DataPartida { get; private set; }        
-        public string ResultadoTimeA { get; private set; }
-        public string ResultadoTimeB { get; private set; }
+        public DateTimeOffset DataPartida { get; private set; }
+        public string ResultadoTimeA { get; private set; } = "0";
+        public string ResultadoTimeB { get; private set; } = "0";
+        public StatusPartida StatusPartida { get; private set; } = StatusPartida.Agendada;
 
         public Partida()
         {
         }
-        public Partida(Times timeA, Times timeB,DateTime dataPartida)
+        public Partida(Times timeA, Times timeB,DateTimeOffset dataPartida)
         {
             TimeA = timeA;
             TimeB = timeB;

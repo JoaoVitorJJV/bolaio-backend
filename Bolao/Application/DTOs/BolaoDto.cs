@@ -23,12 +23,15 @@ namespace Application.DTOs
             string premio,
             string timeA,
             string timeB,
-            string placar
+            string placar,
+            string qtdMaxParticipantes,
+            string partidaId
             );
         public record RegistrarPalpiteDto(Guid BolaoId, int GolsTimeA, int GolsTimeB);
         public record TiposBolao(int id, string descricao);
         public record VisibilidadeDto(int id, string visibilidade);
         public record GetTimesDto(string Id, string Nome, string Bandeira);
-        public record GetPartidasDto(string Id,DateTime data, string timeA, string timeB, string flagA,string flagB);
+        public record GetPartidasDto(string Id,DateTimeOffset data,string timeAId,string timeA,string timeBId,string timeB, string flagA,string flagB);
+        public record CriarPartidaDto(string idTimeA,string idTimeB, DateTimeOffset dataPartida);        
     }
 }

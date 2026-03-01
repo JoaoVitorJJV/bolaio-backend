@@ -1,6 +1,7 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
 using Application.Mappings;
+using Domain.Entities;
 using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,12 @@ namespace Application.Services
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IAdminRepository _adminRepository;
-        public AdminService(IHttpClientFactory httpClientFactory,IAdminRepository adminRepo)
+        private readonly IBolaoRepository _bolaoRepository;
+        public AdminService(IHttpClientFactory httpClientFactory,IAdminRepository adminRepo,IBolaoRepository bolaoRepository)
         {
             _httpClientFactory = httpClientFactory;
             _adminRepository = adminRepo;
+            _bolaoRepository = bolaoRepository;
         }
         public async Task AtualizaTimes()
         {
@@ -27,6 +30,24 @@ namespace Application.Services
             {
                 await _adminRepository.NovoTime(new Domain.Entities.Times(pais.Team.Name, pais.Team.Logo, pais.Team.Id.ToString(), pais.Team.IsNational));
             } 
+        }
+
+        public async Task CriarPartida(BolaoDto.CriarPartidaDto criarPartidaDto)
+        {
+            Times timeA = await _bolaoRepository.GetTimesByIdAsync(criarPartidaDto.idTimeA);
+            Times timeB = await _bolaoRepository.GetTimesByIdAsync(criarPartidaDto.idTimeB);
+
+            if (timeA == null || timeB == null)
+            {
+                throw new Exception("Times não encontrados. Atualize os times antes de criar a partida.");
+            }
+
+
+
+
+            Partida novaPartida = new Partida(timeA, timeB, criarPartidaDto.dataPartida);
+            //Partida novaPartida = new Partida(timeA, timeB, DateTime.UtcNow);
+            await _adminRepository.CriarPartida(novaPartida);
         }
 
         public async Task<TeamResponse> GetPaises()

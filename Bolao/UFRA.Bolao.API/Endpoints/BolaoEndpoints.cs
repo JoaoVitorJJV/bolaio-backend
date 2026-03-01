@@ -7,13 +7,14 @@ using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using UFRA.Bolao.API.Extensions;
 using static Application.DTOs.BolaoDto;
 
 namespace UFRA.Bolao.API.Endpoints
 {
     public static class BolaoEndpoints
     {
-        public static void MapBolaoEndpoints (this IEndpointRouteBuilder routes)
+        public static void MapBolaoEndpoints(this IEndpointRouteBuilder routes)
         {
             var group = routes.MapGroup("/bolao")
               .RequireAuthorization()
@@ -23,14 +24,21 @@ namespace UFRA.Bolao.API.Endpoints
 
             group.MapGet("/listar", ListarBoloes);
             group.MapPost("/registrar_bolao", NovoBolao);
-            group.MapPost("/registrar_palpite",RegistrarPalpite);
-            group.MapGet("/tipo_bolao",GetTipoBolao);
+            group.MapPost("/registrar_palpite", RegistrarPalpite);
+            group.MapGet("/tipo_bolao", GetTipoBolao);
             group.MapGet("/visibilidade", GetVisibiliadeBolao);
             group.MapGet("/times", GetTimesBolao);
             group.MapGet("/listar_Partidas", ListarPartidas);
+            group.MapGet("/listar_palpites_por_usuario", ListarPalpitesPorUsuario);
+            group.MapGet("/", GetBolaoById);            
         }
 
-        private static async Task<IResult> GetTimesBolao([FromServices] IBolaoService  bolaoService)
+        private static async Task<IResult> GetBolaoById([FromServices] IBolaoQueries bolaoQueriesService,[FromQuery]string id )
+        {
+            var res = await bolaoQueriesService.GetBolaoByIdNoTrackAsync(id);
+            return Results.Ok(res);
+        }
+        private static async Task<IResult> GetTimesBolao([FromServices] IBolaoService bolaoService)
         {
             var resultado = await bolaoService.GetTimes();
             if (resultado.Any())
@@ -41,14 +49,14 @@ namespace UFRA.Bolao.API.Endpoints
             {
                 return Results.NotFound();
             }
-            
+
         }
 
         private static Task<IResult> GetTipoBolao([FromServices] IBolaoService bolaoService)
         {
             var resultado = bolaoService.ObterTiposBolao();
 
-            if(resultado.Any())
+            if (resultado.Any())
             {
                 return Task.FromResult(Results.Ok(resultado));
             }
@@ -78,15 +86,15 @@ namespace UFRA.Bolao.API.Endpoints
             return Results.Ok(resultado);
         }
 
-        private static async Task<IResult> NovoBolao([FromBody] CriarBolaoDto CriarBolaoDto, [FromServices] IBolaoService service,IUsuarioRepository usuarioRepository, ClaimsPrincipal user)
-        {            
+        private static async Task<IResult> NovoBolao([FromBody] CriarBolaoDto CriarBolaoDto, [FromServices] IBolaoService service, IUsuarioRepository usuarioRepository, ClaimsPrincipal user)
+        {
             var usuario = await usuarioRepository.ObterPorIdAsync(Guid.Parse(user.FindFirst(ClaimTypes.NameIdentifier).Value));
-            var dtoComOrganizador = CriarBolaoDto with { Organizador = usuario! };            
+            var dtoComOrganizador = CriarBolaoDto with { Organizador = usuario! };
             var resultado = await service.CriarBolaoAsync(dtoComOrganizador);
             return Results.Created($"/bolao/{resultado.Nome}", resultado);
         }
 
-        private static async Task<IResult> RegistrarPalpite([FromBody] RegistrarPalpiteDto dto,[FromServices] IBolaoService bolaoService,ClaimsPrincipal user)
+        private static async Task<IResult> RegistrarPalpite([FromBody] RegistrarPalpiteDto dto, [FromServices] IBolaoService bolaoService, ClaimsPrincipal user)
         {
             var userId = Guid.Parse(user.FindFirst(ClaimTypes.NameIdentifier)?.Value
                     ?? throw new UnauthorizedAccessException());
@@ -97,7 +105,7 @@ namespace UFRA.Bolao.API.Endpoints
         private static async Task<IResult> ListarPartidas([FromServices] IBolaoService bolaoService)
         {
             var resultado = await bolaoService.ListarPartidas();
-            if(resultado.Any())
+            if (resultado.Any())
             {
                 return Results.Ok(resultado);
             }
@@ -106,5 +114,12 @@ namespace UFRA.Bolao.API.Endpoints
                 return Results.NotFound();
             }
         }
+
+        private static async Task<IResult> ListarPalpitesPorUsuario([FromServices] IBolaoQueries bolaoQService, ClaimsPrincipal user)
+        {
+            var res = await bolaoQService.ListarPalpitesPorUsuarioAsync(user.GetId());
+            return Results.Ok(res);
+        }
+
     }
 }

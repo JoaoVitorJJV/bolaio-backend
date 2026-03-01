@@ -14,6 +14,13 @@ namespace Infrastructure.Repositories
         {
             _context = context;
         }
+
+        public async Task CriarPartida(Partida novaPartida)
+        {
+            await _context.Partidas.AddAsync(novaPartida);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task NovoTime(Times time)
         {
             if (!_context.Times.Any(x => x.CodigoExterno == time.CodigoExterno))

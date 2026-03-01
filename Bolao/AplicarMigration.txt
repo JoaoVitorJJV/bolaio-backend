@@ -6,6 +6,11 @@ Add-Migration bolaoendpoint -Project Infrastructure -StartupProject UFRA.Bolao.A
 Update-Database -Project Infrastructure -StartupProject UFRA.Bolao.API
 Remove-Migration -Project Infrastructure -StartupProject UFRA.Bolao.API
 
+docker save -o api_image.tar bolao-api-image > para salvar a imagem do container em um arquivo tar
+
+docker exec -t bcc3a466909b pg_dumpall -c -U postgres > backup_completo.sql > para criar um backup completo do banco de dados em um arquivo SQL
+docker exec -i bcc3a466909b psql -U postgres < backup_completo.sql > para restaurar o banco de dados a partir do arquivo SQL
+
 
 dotnet tool install --global PlantUmlClassDiagramGenerator
 puml-gen "C:\Users\victor\Documents\GitHub\bolaio-backend\Bolao\Domain\Entities\" --output "C:\Users\victor\Documents\GitHub\bolaio-backend\Bolao\Domain\Diagramas\"

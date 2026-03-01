@@ -83,6 +83,11 @@ builder.Services.AddScoped<IBolaoQueries,BolaoQueriesService>();
 builder.Services.AddScoped<IAdminRepository,AdminRepository>();
 builder.Services.AddScoped<IAdminService,AdminService>();
 
+
+
+
+
+
 var jwtKey = builder.Configuration["Jwt:Key"];
 var keyBytes = Encoding.ASCII.GetBytes(jwtKey);
 
@@ -121,6 +126,12 @@ builder.Services.AddAuthorization();
 
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");

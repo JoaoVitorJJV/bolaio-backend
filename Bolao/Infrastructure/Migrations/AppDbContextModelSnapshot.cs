@@ -54,10 +54,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("organizador_id");
 
-                    b.Property<string>("Partida")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("partida");
+                    b.Property<Guid?>("PartidaId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("partida_id");
 
                     b.Property<string>("Premio")
                         .IsRequired()
@@ -97,6 +96,9 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("OrganizadorId")
                         .HasDatabaseName("ix_boloes_organizador_id");
+
+                    b.HasIndex("PartidaId")
+                        .HasDatabaseName("ix_boloes_partida_id");
 
                     b.ToTable("boloes", (string)null);
                 });
@@ -160,6 +162,14 @@ namespace Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("data_criacao");
 
+                    b.Property<int>("PalpiteGolsA")
+                        .HasColumnType("integer")
+                        .HasColumnName("palpite_gols_a");
+
+                    b.Property<int>("PalpiteGolsB")
+                        .HasColumnType("integer")
+                        .HasColumnName("palpite_gols_b");
+
                     b.Property<Guid>("ParticipanteId")
                         .HasColumnType("uuid")
                         .HasColumnName("participante_id");
@@ -167,6 +177,10 @@ namespace Infrastructure.Migrations
                     b.Property<int>("QtdCotas")
                         .HasColumnType("integer")
                         .HasColumnName("qtd_cotas");
+
+                    b.Property<int>("StatusPalpite")
+                        .HasColumnType("integer")
+                        .HasColumnName("status_palpite");
 
                     b.Property<Guid>("TransacaoId")
                         .HasColumnType("uuid")
@@ -194,7 +208,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTime>("DataPartida")
+                    b.Property<DateTimeOffset>("DataPartida")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("data_partida");
 
@@ -207,6 +221,10 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("resultado_time_b");
+
+                    b.Property<int>("StatusPartida")
+                        .HasColumnType("integer")
+                        .HasColumnName("status_partida");
 
                     b.Property<Guid>("TimeAId")
                         .HasColumnType("uuid")
@@ -376,7 +394,14 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_boloes_usuarios_organizador_id");
 
+                    b.HasOne("Domain.Entities.Partida", "Partida")
+                        .WithMany()
+                        .HasForeignKey("PartidaId")
+                        .HasConstraintName("fk_boloes_partidas_partida_id");
+
                     b.Navigation("Organizador");
+
+                    b.Navigation("Partida");
                 });
 
             modelBuilder.Entity("Domain.Entities.Carteira", b =>
