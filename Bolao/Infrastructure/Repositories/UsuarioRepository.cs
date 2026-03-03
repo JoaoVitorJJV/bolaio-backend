@@ -34,10 +34,17 @@ namespace Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public Task<Usuario?> ObterPorIdAsync(Guid id)
+        public async Task<Usuario?> ObterPorIdAsync(Guid id)
         {
-            Usuario? usuario = _context.usuarios.Include(u=>u.Carteira).FirstOrDefault(u => u.Id == id);
-            return Task.FromResult(usuario);
+            Usuario? usuario = await _context.usuarios.Include(u=>u.Carteira).FirstOrDefaultAsync(u => u.Id == id);
+            return usuario;
         }
+
+        public async Task UpdateAsync(Usuario usuario)
+        {
+            _context.usuarios.Update(usuario);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }

@@ -11,12 +11,12 @@ namespace Domain.Entities
     {
         public Guid Id { get; private set; }
         public string Nome { get; private set; }
-        public string Email { get; private set; }
+        public string Email { get; private set; }        
 
         public byte[] PasswordHash { get; private set; }
         public byte[] PasswordSalt { get; private set; }
 
-
+        public bool Admin { get; private set; } = false;
         public bool Ativo { get; private set; }
         public Carteira? Carteira { get; set; }
 
@@ -38,19 +38,21 @@ namespace Domain.Entities
             PasswordSalt = passwordSalt;
         }
 
-        public void AlterarNome(string novoNome)
+        public void AlterarUsuario(string nome,string email)
         {
-            if (string.IsNullOrWhiteSpace(novoNome))
+            if (string.IsNullOrWhiteSpace(nome) || string.IsNullOrWhiteSpace(email))
             {
-                throw new DomainException("O nome do usuário não pode ser vazio.");
+                throw new DomainException("Informações inválidas!");
             }
 
-            if (novoNome.Length < 3)
-            {
-                throw new DomainException("O nome deve ter pelo menos 3 caracteres.");
-            }
+            this.Nome = nome;
+            this.Email = email;
 
-            Nome = novoNome;
+        }
+
+        public void Ativar(bool ativo)
+        {
+            this.Ativo = ativo;
         }
     }
 }

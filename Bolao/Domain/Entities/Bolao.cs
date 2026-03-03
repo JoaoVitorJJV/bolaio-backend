@@ -32,7 +32,7 @@ namespace Domain.Entities
             
         }
 
-        public Bolao(Usuario organizador, string nome, TipoVisibilidade visibilidade, decimal valor, DateTime dtFechamento, TipoBolao tipoBolao, int maxParticipantes, Partida partida)
+        public Bolao(Usuario organizador, string nome, TipoVisibilidade visibilidade, decimal valor, DateTime dtFechamento, TipoBolao tipoBolao, int? maxParticipantes, Partida partida)
         {
             Id = Guid.NewGuid();
             Organizador = organizador;

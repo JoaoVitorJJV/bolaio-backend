@@ -82,8 +82,12 @@ builder.Services.AddScoped<IBolaoService,BolaoService>();
 builder.Services.AddScoped<IBolaoQueries,BolaoQueriesService>();
 builder.Services.AddScoped<IAdminRepository,AdminRepository>();
 builder.Services.AddScoped<IAdminService,AdminService>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
-
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ResponseHeaderEncodingSelector = _ => System.Text.Encoding.UTF8;
+});
 
 
 
@@ -158,5 +162,6 @@ app.MapAuthEndpoints();
 app.MapCarteiraEndpoints();
 app.MapBolaoEndpoints();
 app.MapAdminEndpoints();
+app.MapUsuarioEndpoins();
 
 app.Run();

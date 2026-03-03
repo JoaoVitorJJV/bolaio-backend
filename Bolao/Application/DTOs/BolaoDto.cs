@@ -8,7 +8,7 @@ namespace Application.DTOs
 {
     public class BolaoDto
     {
-        public record CriarBolaoDto(Usuario Organizador, string Nome, TipoVisibilidade Visibilidade, decimal Valor, DateTime DtFechamento, TipoBolao TipoBolao,int maxParticipantes, Guid partidaId);
+        public record CriarBolaoDto(Usuario Organizador, string Nome, TipoVisibilidade Visibilidade, decimal Valor, DateTime DtFechamento, TipoBolao TipoBolao,int? maxParticipantes, Guid partidaId);
         //public record CriarBolaoDto(Usuario Organizador, string Nome, TipoVisibilidade Visibilidade, decimal Valor, DateTime DtFechamento, TipoBolao TipoBolao,int maxParticipantes, string partidaId);
         public record CriarBolaoResponseDto(string Nome,DateTime DtFechamento,string Organizador);
         public record ListarBoloesDto(
@@ -31,7 +31,9 @@ namespace Application.DTOs
         public record TiposBolao(int id, string descricao);
         public record VisibilidadeDto(int id, string visibilidade);
         public record GetTimesDto(string Id, string Nome, string Bandeira);
-        public record GetPartidasDto(string Id,DateTimeOffset data,string timeAId,string timeA,string timeBId,string timeB, string flagA,string flagB);
+        public record GetPartidasDto(string Id,DateTimeOffset data,string timeAId,string timeA,string timeBId,string timeB, string flagA,string flagB,string statusPartida,string resultadoTimeA, string resultadoTimeB);
         public record CriarPartidaDto(string idTimeA,string idTimeB, DateTimeOffset dataPartida);        
+        public record EstornarPalpites(Guid[] bolaoId);
+        public record StatusDaPartidaDto(Guid idPartida,int statusPartida);
     }
 }

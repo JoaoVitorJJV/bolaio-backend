@@ -63,5 +63,19 @@ namespace Application.Services
             await _usuarioRepository.SaveChangesAsync();
             return new RegisterResponseDto(novoUsuario.Id, novoUsuario.Nome, novoUsuario.Email);
         }
+
+        public async Task<string> ResetPasswordAsync(ResetPasswordRequestDto dto)
+        {
+            var usuarioExistente = await _usuarioRepository.ObterPorEmailAsync(dto.Email);
+            if (usuarioExistente == null)
+            {
+                throw new DomainException("Usuário não encontrado");
+            }
+
+            _authService.CriarPasswordHash(dto.NovaSenha, out byte[] passwordHash, out byte[] passwordSalt);
+            usuarioExistente.DefinirSenha(passwordHash, passwordSalt);
+            await _usuarioRepository.SaveChangesAsync();
+            return "Senha redefinida com sucesso.";
+        }
     }
 }

@@ -30,5 +30,10 @@ namespace Domain.Entities
             ResultadoTimeA = resultadoA;
             ResultadoTimeB = resultadoB;
         }
+
+        public void AtualizarStatus(StatusPartida statusPartida)
+        {
+            this.StatusPartida = statusPartida;
+        }
     }
 }

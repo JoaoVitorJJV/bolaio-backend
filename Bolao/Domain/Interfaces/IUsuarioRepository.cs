@@ -14,7 +14,7 @@ namespace Domain.Interfaces
 
         Task AdicionarAsync(Usuario usuario);
 
-      
+        Task UpdateAsync(Usuario usuario)   ;
         Task SaveChangesAsync();
     }
 }

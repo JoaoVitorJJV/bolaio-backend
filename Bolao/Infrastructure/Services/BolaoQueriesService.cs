@@ -109,5 +109,47 @@ namespace Infrastructure.Services
                     ))
                 .ToListAsync();
         }
+
+        public async Task<List<string>> GetLogs()
+        {
+            var random = new Random();
+            var logs = new List<string>();
+
+            string[] acoes = {
+        "Transação Efetuada", "Palpite Cadastrado", "Bolão Criado",
+        "Partida Criada", "Partida Encerrada", "Login Realizado",
+        "Erro de Conexão RabbitMQ", "Sincronização SGD", "Ajuste de Saldo"
+    };
+
+            string[] tiposTransacao = { "Débito", "Depósito" };
+            string[] usuarios = { "xiconha", "admin_tester", "user_99", "dev_back" };
+
+            for (int i = 1; i <= 1000; i++)
+            {
+                var data = DateTime.Now.AddSeconds(-i * 10); // Logs retroativos a cada 10 segundos
+                var acao = acoes[random.Next(acoes.Length)];
+                var usuario = usuarios[random.Next(usuarios.Length)];
+
+                string logEntry = $"[{data:yyyy-MM-dd HH:mm:ss}] ";
+
+                // Lógica customizada baseada na ação sorteada
+                logEntry += acao switch
+                {
+                    "Transação Efetuada" => $"FINANCE: {acao} - Tipo: {tiposTransacao[random.Next(tiposTransacao.Length)]} - Valor: R$ {random.Next(5, 600)},00 - Usuário: {usuario}",
+                    "Palpite Cadastrado" => $"GAME: {acao} - Usuário: {usuario} - Partida ID: {random.Next(100, 500)} - Placar: {random.Next(0, 5)}x{random.Next(0, 5)}",
+                    "Bolão Criado" => $"USER: {acao} - Nome: 'Torneio {random.Next(2025, 2027)}' - Criado por: {usuario}",
+                    "Erro de Conexão RabbitMQ" => $"ERROR: Falha na fila 'processamento_bolao' - Tentativa: {random.Next(1, 5)}",
+                    "Partida Encerrada" => $"SYSTEM: Partida ID {random.Next(100, 500)} encerrada. Processando resultados no PostgreSQL.",
+                    _ => $"INFO: {acao} executada com sucesso por {usuario}."
+                };
+
+                logs.Add(logEntry);
+            }
+
+            // Inverte para que o log mais recente apareça primeiro (comum em dashboards)
+            logs.Reverse();
+
+            return await Task.FromResult(logs);
+        }
     }
 }

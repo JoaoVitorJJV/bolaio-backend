@@ -26,6 +26,15 @@ namespace UFRA.Bolaio.API.Endpoints
              .Produces<RegisterResponseDto>(StatusCodes.Status201Created)
              .ProducesProblem(StatusCodes.Status400BadRequest)
              .ProducesProblem(StatusCodes.Status409Conflict);
+
+            group.MapPost("/reset-password", RedefinirSenha)
+             .AllowAnonymous()
+             .WithName("RedefinirSenha")
+             .WithSummary("Redefine a senha de um usuário")
+             .WithDescription("Recebe o email do usuário e a nova senha. A senha deve ter letras maiúsculas, minúsculas e caracteres especiais.")
+             .Produces<string>(StatusCodes.Status200OK)
+             .ProducesProblem(StatusCodes.Status400BadRequest)
+             .ProducesProblem(StatusCodes.Status404NotFound);
         }
 
 
@@ -42,6 +51,12 @@ namespace UFRA.Bolaio.API.Endpoints
             return Results.Created($"/usuarios/{resultado.Id}", resultado);
         }
 
-   
+        private static async Task<IResult> RedefinirSenha([FromBody] ResetPasswordRequestDto request, [FromServices] AuthAppService appService)
+        {
+            var resultado = await appService.ResetPasswordAsync(request);
+            return Results.Ok(resultado);
+        }
+
+        
     }
 }

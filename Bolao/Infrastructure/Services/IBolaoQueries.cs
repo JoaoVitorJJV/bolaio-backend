@@ -15,6 +15,6 @@ namespace Infrastructure.Services
         Task<List<GetExtratoResponseDto>> GetExtrato(Guid idusuario);
         Task<ListarBoloesDto> GetBolaoByIdNoTrackAsync(string id);
         Task<List<PalpitesAtivosDto>> ListarPalpitesPorUsuarioAsync(Guid guid);
-       
+        Task<List<string>> GetLogs();
     }
 }

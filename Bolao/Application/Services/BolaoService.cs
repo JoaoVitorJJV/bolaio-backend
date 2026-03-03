@@ -88,7 +88,19 @@ namespace Application.Services
         public async Task<List<GetPartidasDto>> ListarPartidas()
         {
             var res = await _bolaoRepository.GetPartidas();            
-            return res.Select(r => new GetPartidasDto(r.Id.ToString(),r.DataPartida,r.TimeA.Id.ToString(), r.TimeA.Nome,r.TimeB.Id.ToString(),r.TimeB.Nome,r.TimeA.BandeiraUrl,r.TimeB.BandeiraUrl)).ToList();
+            return res.Select(r => new GetPartidasDto(
+                r.Id.ToString(),
+                r.DataPartida,
+                r.TimeA.Id.ToString(),
+                r.TimeA.Nome,
+                r.TimeB.Id.ToString(),
+                r.TimeB.Nome,
+                r.TimeA.BandeiraUrl,
+                r.TimeB.BandeiraUrl,
+                r.StatusPartida.ToString(),
+                r.ResultadoTimeA,
+                r.ResultadoTimeB
+                )).ToList();
         }
 
         public List<TiposBolao> ObterTiposBolao()

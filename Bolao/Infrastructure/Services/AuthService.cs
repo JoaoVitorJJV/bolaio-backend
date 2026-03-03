@@ -46,14 +46,19 @@ namespace Infrastructure.Services
         public string CreateToken(Usuario usuario)
         {
             var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
-            new Claim(ClaimTypes.Name, usuario.Nome),
-            new Claim(ClaimTypes.Email, usuario.Email),
-            new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString())
-        };
+                {
+                    new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
+                    new Claim(ClaimTypes.Name, usuario.Nome),
+                    new Claim(ClaimTypes.Email, usuario.Email),
+                    new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString())
+                };
 
             var tokenKey = _configuration.GetSection("Jwt:Key").Value;
+
+            if (usuario.Admin)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, "admin"));
+            }
 
             if (string.IsNullOrEmpty(tokenKey))
                 throw new Exception("Token não configurado.");
